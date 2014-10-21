@@ -39,7 +39,7 @@ class OverlayExampleVC: UIViewController {
             // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
         case .WaitWithText:
-            self.showCenteredWaitOverlayWithText("Please wait...")
+            self.showCenteredWaitOverlayWithText("Please wait...")            
             // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: "Please wait...")
             
         case .AnnoyingNotification:

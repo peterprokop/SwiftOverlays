@@ -100,11 +100,8 @@ class SwiftOverlays: NSObject
         containerView.backgroundColor = Statics.backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
             parentView.bounds.size.height/2);
-        
-        var frame = ai.frame
-        frame.origin.x = Statics.padding
-        frame.origin.y = (actualSize.height - frame.size.height)/2
-        ai.frame = frame
+
+        ai.frame = CGRectOffset(ai.frame, Statics.padding, (actualSize.height - ai.frame.size.height)/2)
         
         containerView.addSubview(ai)
         containerView.addSubview(label)
