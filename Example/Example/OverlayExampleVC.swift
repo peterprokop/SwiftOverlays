@@ -35,16 +35,19 @@ class OverlayExampleVC: UIViewController {
     func begin() {
         switch (type) {
         case .Wait:
-            SwiftOverlays.showCenteredWaitOverlay(self.view)
+            self.showCenteredWaitOverlay()
+            // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
         case .WaitWithText:
-            SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: "Please wait...")
+            self.showCenteredWaitOverlayWithText("Please wait...")
+            // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: "Please wait...")
             
         case .AnnoyingNotification:
             NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
             
-            SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            // Or SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
         }
         
         let delay = 2.0 * Double(NSEC_PER_SEC)

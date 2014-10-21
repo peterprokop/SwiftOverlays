@@ -9,6 +9,22 @@
 import Foundation
 import UIKit
 
+
+// For convenience methods
+extension UIViewController {
+    func showCenteredWaitOverlay() -> UIView {
+        return SwiftOverlays.showCenteredWaitOverlay(self.view)
+    }
+    
+    func showCenteredWaitOverlayWithText(text: NSString) -> UIView  {
+        return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
+    }
+    
+    class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
+        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
+    }
+}
+
 class SwiftOverlays: NSObject
 {
     // Workaround for "Class variables not yet supported"
@@ -22,7 +38,7 @@ class SwiftOverlays: NSObject
         
         static let backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
         static let textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        static let font = UIFont(name: "HelveticaNeue", size: 14)
+        static let font = UIFont(name: "HelveticaNeue", size: 14)!
         
         // Annoying notifications on top of status bar
         static let bannerDissapearAnimationDuration = 0.5
