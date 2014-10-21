@@ -36,12 +36,12 @@ class OverlayExampleVC: UIViewController {
     func begin() {
         switch (type) {
         case .Wait:
-            self.showCenteredWaitOverlay()
+            self.showWaitOverlay()
             // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
         case .WaitWithText:
             let text = "Please wait..."
-            self.showCenteredWaitOverlayWithText(text)
+            self.showWaitOverlayWithText(text)
             // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
         
         case .TextOnly:

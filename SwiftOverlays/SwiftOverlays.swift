@@ -12,11 +12,11 @@ import UIKit
 
 // For convenience methods
 extension UIViewController {
-    func showCenteredWaitOverlay() -> UIView {
+    func showWaitOverlay() -> UIView {
         return SwiftOverlays.showCenteredWaitOverlay(self.view)
     }
     
-    func showCenteredWaitOverlayWithText(text: NSString) -> UIView  {
+    func showWaitOverlayWithText(text: NSString) -> UIView  {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
