@@ -12,6 +12,7 @@ class OverlayExampleVC: UIViewController {
     enum ExampleType {
         case Wait
         case WaitWithText
+        case TextOnly
         case AnnoyingNotification
     }
     
@@ -39,8 +40,16 @@ class OverlayExampleVC: UIViewController {
             // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
         case .WaitWithText:
-            self.showCenteredWaitOverlayWithText("Please wait...")            
-            // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: "Please wait...")
+            let text = "Please wait..."
+            self.showCenteredWaitOverlayWithText(text)
+            // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
+        
+        case .TextOnly:
+            let text = "This is a text-only overlay...\n...spanning several lines"
+            self.showTextOverlay(text)
+            // Or SwiftOverlays.showTextOverlay(self.view, text: text)
+            
+            return
             
         case .AnnoyingNotification:
             NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
@@ -48,6 +57,8 @@ class OverlayExampleVC: UIViewController {
             
             UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
             // Or SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            
+            return
         }
         
         let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -65,7 +76,7 @@ class OverlayExampleVC: UIViewController {
     
     func end() {
         switch (type) {
-        case .Wait, .WaitWithText:
+        case .Wait, .WaitWithText, .TextOnly:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
             
         case .AnnoyingNotification:

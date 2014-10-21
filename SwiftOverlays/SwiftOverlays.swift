@@ -20,6 +20,10 @@ extension UIViewController {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
+    func showTextOverlay(text: NSString) -> UIView  {
+        return SwiftOverlays.showTextOverlay(self.view, text: text)
+    }
+    
     class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
     }
@@ -104,6 +108,34 @@ class SwiftOverlays: NSObject
         ai.frame = CGRectOffset(ai.frame, Statics.padding, (actualSize.height - ai.frame.size.height)/2)
         
         containerView.addSubview(ai)
+        containerView.addSubview(label)
+        
+        parentView.addSubview(containerView)
+        
+        return containerView
+    }
+    
+    class func showTextOverlay(parentView: UIView, text: NSString) -> UIView  {
+        let label = labelForText(text)
+        label.frame = CGRectOffset(label.frame, Statics.padding, Statics.padding)
+        
+        let actualSize = CGSizeMake(label.frame.size.width + Statics.padding * 2,
+            label.frame.size.height + Statics.padding * 2)
+        
+        // Container view
+        let containerViewRect = CGRectMake(0,
+            0,
+            actualSize.width,
+            actualSize.height)
+        
+        let containerView = UIView(frame: containerViewRect)
+        
+        containerView.tag = Statics.containerViewTag
+        containerView.layer.cornerRadius = Statics.cornerRadius
+        containerView.backgroundColor = Statics.backgroundColor
+        containerView.center = CGPointMake(parentView.bounds.size.width/2,
+            parentView.bounds.size.height/2);
+
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)
