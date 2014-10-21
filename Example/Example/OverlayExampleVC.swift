@@ -12,6 +12,7 @@ class OverlayExampleVC: UIViewController {
     enum ExampleType {
         case Wait
         case WaitWithText
+        case TextOnly
         case AnnoyingNotification
     }
     
@@ -35,16 +36,29 @@ class OverlayExampleVC: UIViewController {
     func begin() {
         switch (type) {
         case .Wait:
-            SwiftOverlays.showCenteredWaitOverlay(self.view)
+            self.showWaitOverlay()
+            // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
         case .WaitWithText:
-            SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: "Please wait...")
+            let text = "Please wait..."
+            self.showWaitOverlayWithText(text)
+            // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
+        
+        case .TextOnly:
+            let text = "This is a text-only overlay...\n...spanning several lines"
+            self.showTextOverlay(text)
+            // Or SwiftOverlays.showTextOverlay(self.view, text: text)
+            
+            return
             
         case .AnnoyingNotification:
             NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
             
-            SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            // Or SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            
+            return
         }
         
         let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -62,7 +76,7 @@ class OverlayExampleVC: UIViewController {
     
     func end() {
         switch (type) {
-        case .Wait, .WaitWithText:
+        case .Wait, .WaitWithText, .TextOnly:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
             
         case .AnnoyingNotification:

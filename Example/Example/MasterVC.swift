@@ -10,8 +10,8 @@ import UIKit
 
 class MasterVC: UITableViewController {
 
-    var objects = ["Wait overlay", "Wait overlay with text", "Annoying notification on top"]
-    var types: Array<OverlayExampleVC.ExampleType> = [.Wait, .WaitWithText, .AnnoyingNotification]
+    var exampleDescriptions = ["Wait overlay", "Wait overlay with text", "Overlay with text only", "Annoying notification on top"]
+    var types: Array<OverlayExampleVC.ExampleType> = [.Wait, .WaitWithText, .TextOnly, .AnnoyingNotification]
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,6 +33,7 @@ class MasterVC: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let type = types[indexPath.row]
                 (segue.destinationViewController as OverlayExampleVC).type = type
+                (segue.destinationViewController as UIViewController).title = exampleDescriptions[indexPath.row]
             }
         }
     }
@@ -44,14 +45,14 @@ class MasterVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return exampleDescriptions.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
-        let object = objects[indexPath.row]
-        cell.textLabel?.text = object
+        let object = exampleDescriptions[indexPath.row]
+        cell.textLabel.text = object
         return cell
     }
     

@@ -9,6 +9,26 @@
 import Foundation
 import UIKit
 
+
+// For convenience methods
+extension UIViewController {
+    func showWaitOverlay() -> UIView {
+        return SwiftOverlays.showCenteredWaitOverlay(self.view)
+    }
+    
+    func showWaitOverlayWithText(text: NSString) -> UIView  {
+        return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
+    }
+    
+    func showTextOverlay(text: NSString) -> UIView  {
+        return SwiftOverlays.showTextOverlay(self.view, text: text)
+    }
+    
+    class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
+        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
+    }
+}
+
 class SwiftOverlays: NSObject
 {
     // Workaround for "Class variables not yet supported"
@@ -22,7 +42,7 @@ class SwiftOverlays: NSObject
         
         static let backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
         static let textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        static let font = UIFont(name: "HelveticaNeue", size: 14)
+        static let font = UIFont(name: "HelveticaNeue", size: 14)!
         
         // Annoying notifications on top of status bar
         static let bannerDissapearAnimationDuration = 0.5
@@ -31,6 +51,8 @@ class SwiftOverlays: NSObject
     private struct PrivateStaticVars {
         static var bannerWindow : UIWindow?
     }
+    
+    // MARK: Public class methods
     
     class func showCenteredWaitOverlay(parentView: UIView) -> UIView {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
@@ -60,14 +82,14 @@ class SwiftOverlays: NSObject
     }
     
     class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString) -> UIView  {
-        let constraintSize = CGSizeMake(parentView.bounds.size.width * 0.9, parentView.bounds.size.height * 0.9);
-        let textSize = text.sizeWithAttributes([NSFontAttributeName: Statics.font])
-
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         ai.startAnimating()
         
-        let actualSize = CGSizeMake(ai.frame.size.width + textSize.width + Statics.padding * 3,
-            max(textSize.height, ai.frame.size.height) + Statics.padding * 2)
+        let label = labelForText(text)
+        label.frame = CGRectOffset(label.frame, ai.frame.size.width + Statics.padding * 2, Statics.padding)
+        
+        let actualSize = CGSizeMake(ai.frame.size.width + label.frame.size.width + Statics.padding * 3,
+            max(label.frame.size.height, ai.frame.size.height) + Statics.padding * 2)
         
         // Container view
         let containerViewRect = CGRectMake(0,
@@ -82,24 +104,38 @@ class SwiftOverlays: NSObject
         containerView.backgroundColor = Statics.backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
             parentView.bounds.size.height/2);
-        
-        var frame = ai.frame
-        frame.origin.x = Statics.padding
-        frame.origin.y = (actualSize.height - frame.size.height)/2
-        ai.frame = frame
+
+        ai.frame = CGRectOffset(ai.frame, Statics.padding, (actualSize.height - ai.frame.size.height)/2)
         
         containerView.addSubview(ai)
+        containerView.addSubview(label)
         
-        // Label
-        let labelRect = CGRectMake(ai.frame.size.width + Statics.padding * 2,
-            Statics.padding,
-            textSize.width,
-            textSize.height)
-        let label = UILabel(frame: labelRect)
-        label.font = Statics.font
-        label.textColor = Statics.textColor
-        label.text = text
-        label.numberOfLines = 0
+        parentView.addSubview(containerView)
+        
+        return containerView
+    }
+    
+    class func showTextOverlay(parentView: UIView, text: NSString) -> UIView  {
+        let label = labelForText(text)
+        label.frame = CGRectOffset(label.frame, Statics.padding, Statics.padding)
+        
+        let actualSize = CGSizeMake(label.frame.size.width + Statics.padding * 2,
+            label.frame.size.height + Statics.padding * 2)
+        
+        // Container view
+        let containerViewRect = CGRectMake(0,
+            0,
+            actualSize.width,
+            actualSize.height)
+        
+        let containerView = UIView(frame: containerViewRect)
+        
+        containerView.tag = Statics.containerViewTag
+        containerView.layer.cornerRadius = Statics.cornerRadius
+        containerView.backgroundColor = Statics.backgroundColor
+        containerView.center = CGPointMake(parentView.bounds.size.width/2,
+            parentView.bounds.size.height/2);
+
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)
@@ -159,5 +195,24 @@ class SwiftOverlays: NSObject
                 PrivateStaticVars.bannerWindow!.hidden = true
             }
         )
+    }
+    
+    // MARK: Private class methods
+    
+    private class func labelForText(text: NSString) -> UILabel {
+        let textSize = text.sizeWithAttributes([NSFontAttributeName: Statics.font])
+        
+        let labelRect = CGRectMake(0,
+            0,
+            textSize.width,
+            textSize.height)
+        
+        let label = UILabel(frame: labelRect)
+        label.font = Statics.font
+        label.textColor = Statics.textColor
+        label.text = text
+        label.numberOfLines = 0
+        
+        return label;
     }
 }
