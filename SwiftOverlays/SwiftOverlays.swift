@@ -48,6 +48,8 @@ class SwiftOverlays: NSObject
         static var bannerWindow : UIWindow?
     }
     
+    // MARK: Public class methods
+    
     class func showCenteredWaitOverlay(parentView: UIView) -> UIView {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         ai.startAnimating()
@@ -76,14 +78,14 @@ class SwiftOverlays: NSObject
     }
     
     class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString) -> UIView  {
-        let constraintSize = CGSizeMake(parentView.bounds.size.width * 0.9, parentView.bounds.size.height * 0.9);
-        let textSize = text.sizeWithAttributes([NSFontAttributeName: Statics.font])
-
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         ai.startAnimating()
         
-        let actualSize = CGSizeMake(ai.frame.size.width + textSize.width + Statics.padding * 3,
-            max(textSize.height, ai.frame.size.height) + Statics.padding * 2)
+        let label = labelForText(text)
+        label.frame = CGRectOffset(label.frame, ai.frame.size.width + Statics.padding * 2, Statics.padding)
+        
+        let actualSize = CGSizeMake(ai.frame.size.width + label.frame.size.width + Statics.padding * 3,
+            max(label.frame.size.height, ai.frame.size.height) + Statics.padding * 2)
         
         // Container view
         let containerViewRect = CGRectMake(0,
@@ -105,17 +107,6 @@ class SwiftOverlays: NSObject
         ai.frame = frame
         
         containerView.addSubview(ai)
-        
-        // Label
-        let labelRect = CGRectMake(ai.frame.size.width + Statics.padding * 2,
-            Statics.padding,
-            textSize.width,
-            textSize.height)
-        let label = UILabel(frame: labelRect)
-        label.font = Statics.font
-        label.textColor = Statics.textColor
-        label.text = text
-        label.numberOfLines = 0
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)
@@ -175,5 +166,24 @@ class SwiftOverlays: NSObject
                 PrivateStaticVars.bannerWindow!.hidden = true
             }
         )
+    }
+    
+    // MARK: Private class methods
+    
+    private class func labelForText(text: NSString) -> UILabel {
+        let textSize = text.sizeWithAttributes([NSFontAttributeName: Statics.font])
+        
+        let labelRect = CGRectMake(0,
+            0,
+            textSize.width,
+            textSize.height)
+        
+        let label = UILabel(frame: labelRect)
+        label.font = Statics.font
+        label.textColor = Statics.textColor
+        label.text = text
+        label.numberOfLines = 0
+        
+        return label;
     }
 }
