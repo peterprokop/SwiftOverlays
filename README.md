@@ -16,7 +16,7 @@ Currently SwiftOverlays provides 4 ways to notify user:
 ![WaitWithText](https://i.imgflip.com/df525.gif)
 
 - [x] Overlay with text only
-- [x] Notification on top of the status bar, similar to native
+- [x] Notification on top of the status bar, similar to native iOS local/push notifications
 
 ![Notification](https://i.imgflip.com/df5k5.gif)
 
