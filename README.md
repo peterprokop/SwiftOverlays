@@ -5,7 +5,7 @@ SwiftOverlays is a Swift GUI library for displaying various popups and notificat
 
 ## Features
 
-Currently SwiftOverlays provides 3 ways to notify user:
+Currently SwiftOverlays provides 4 ways to notify user:
 
 - [x] Wait overlay: a simple overlay with activity indicator
 
@@ -18,7 +18,7 @@ Currently SwiftOverlays provides 3 ways to notify user:
 - [x] Overlay with text only
 - [x] Notification on top of the status bar, similar to native
 
-![Notification](https://i.imgflip.com/df533.gif)
+![Notification](https://i.imgflip.com/df5k5.gif)
 
 ## Installation
 
