@@ -51,3 +51,7 @@ self.showTextOverlay(text)
 UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
 // (Notification on top of the status bar)
 ```
+
+## Contribution
+
+You are welcome to fork and submit pull requests
