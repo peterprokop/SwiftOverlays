@@ -13,6 +13,7 @@ class OverlayExampleVC: UIViewController {
         case Wait
         case WaitWithText
         case TextOnly
+        case ImageAndText
         case AnnoyingNotification
     }
     
@@ -51,6 +52,14 @@ class OverlayExampleVC: UIViewController {
             
             return
             
+        case .ImageAndText:
+            let image = PPSwiftGifs.animatedImageWithGIFNamed("Loading")
+            let text = "Overlay\nWith cool GIF!"
+            self.showImageAndTextOverlay(image!, text: text)
+            // Or SwiftOverlays.showImageAndTextOverlay(self.view, image: image!, text: text)
+            
+            return
+            
         case .AnnoyingNotification:
             NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
@@ -76,7 +85,7 @@ class OverlayExampleVC: UIViewController {
     
     func end() {
         switch (type) {
-        case .Wait, .WaitWithText, .TextOnly:
+        case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
             
         case .AnnoyingNotification:

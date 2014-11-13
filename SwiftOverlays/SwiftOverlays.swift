@@ -24,6 +24,10 @@ extension UIViewController {
         return SwiftOverlays.showTextOverlay(self.view, text: text)
     }
     
+    func showImageAndTextOverlay(image: UIImage, text: NSString) -> UIView  {
+        return SwiftOverlays.showImageAndTextOverlay(self.view, image: image, text: text)
+    }
+    
     class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
     }
@@ -85,11 +89,21 @@ class SwiftOverlays: NSObject
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         ai.startAnimating()
         
-        let label = labelForText(text)
-        label.frame = CGRectOffset(label.frame, ai.frame.size.width + Statics.padding * 2, Statics.padding)
+        return showGenericOverlay(parentView, text: text, accessoryView: ai)
+    }
+    
+    class func showImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
+        let imageView = UIImageView(image: image)
         
-        let actualSize = CGSizeMake(ai.frame.size.width + label.frame.size.width + Statics.padding * 3,
-            max(label.frame.size.height, ai.frame.size.height) + Statics.padding * 2)
+        return showGenericOverlay(parentView, text: text, accessoryView: imageView)
+    }
+
+    class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView) -> UIView {
+        let label = labelForText(text)
+        label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + Statics.padding * 2, Statics.padding)
+        
+        let actualSize = CGSizeMake(accessoryView.frame.size.width + label.frame.size.width + Statics.padding * 3,
+            max(label.frame.size.height, accessoryView.frame.size.height) + Statics.padding * 2)
         
         // Container view
         let containerViewRect = CGRectMake(0,
@@ -104,10 +118,10 @@ class SwiftOverlays: NSObject
         containerView.backgroundColor = Statics.backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
             parentView.bounds.size.height/2);
-
-        ai.frame = CGRectOffset(ai.frame, Statics.padding, (actualSize.height - ai.frame.size.height)/2)
         
-        containerView.addSubview(ai)
+        accessoryView.frame = CGRectOffset(accessoryView.frame, Statics.padding, (actualSize.height - accessoryView.frame.size.height)/2)
+        
+        containerView.addSubview(accessoryView)
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)

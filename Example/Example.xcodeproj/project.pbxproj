@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DC790E71A14F3180097EB37 /* PPSwiftGifs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC790E61A14F3180097EB37 /* PPSwiftGifs.swift */; };
+		0DC790E91A14F32F0097EB37 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC790E81A14F32F0097EB37 /* ImageIO.framework */; };
+		0DC790EE1A14F6AA0097EB37 /* Loading@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */; };
 		0DC7A86A19F15EC90022AC95 /* AnnoyingNotification.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DC7A86919F15EC90022AC95 /* AnnoyingNotification.xib */; };
 		0DEE76C319F14A0800F6F7A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE76C219F14A0800F6F7A7 /* AppDelegate.swift */; };
 		0DEE76C519F14A0800F6F7A7 /* MasterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE76C419F14A0800F6F7A7 /* MasterVC.swift */; };
@@ -29,6 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DC790E61A14F3180097EB37 /* PPSwiftGifs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPSwiftGifs.swift; sourceTree = "<group>"; };
+		0DC790E81A14F32F0097EB37 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0DC790EB1A14F6740097EB37 /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Loading@2x.gif"; sourceTree = "<group>"; };
 		0DC7A86919F15EC90022AC95 /* AnnoyingNotification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnoyingNotification.xib; sourceTree = "<group>"; };
 		0DEE76BD19F14A0800F6F7A7 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DEE76C119F14A0800F6F7A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DC790E91A14F32F0097EB37 /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,9 +70,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DC790E51A14F3180097EB37 /* PPSwiftGifs */ = {
+			isa = PBXGroup;
+			children = (
+				0DC790E61A14F3180097EB37 /* PPSwiftGifs.swift */,
+			);
+			path = PPSwiftGifs;
+			sourceTree = "<group>";
+		};
+		0DC790EC1A14F6A30097EB37 /* Res */ = {
+			isa = PBXGroup;
+			children = (
+				0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */,
+			);
+			path = Res;
+			sourceTree = "<group>";
+		};
 		0DEE76B419F14A0800F6F7A7 = {
 			isa = PBXGroup;
 			children = (
+				0DC790E81A14F32F0097EB37 /* ImageIO.framework */,
+				0DC790E51A14F3180097EB37 /* PPSwiftGifs */,
 				0DEE76E419F14A4C00F6F7A7 /* SwiftOverlays */,
 				0DEE76BF19F14A0800F6F7A7 /* Example */,
 				0DEE76D719F14A0800F6F7A7 /* ExampleTests */,
@@ -84,6 +110,8 @@
 		0DEE76BF19F14A0800F6F7A7 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				0DC790EC1A14F6A30097EB37 /* Res */,
+				0DC790EB1A14F6740097EB37 /* Example-Bridging-Header.h */,
 				0DEE76E719F14D5F00F6F7A7 /* OverlayExampleVC.swift */,
 				0DEE76C219F14A0800F6F7A7 /* AppDelegate.swift */,
 				0DEE76C419F14A0800F6F7A7 /* MasterVC.swift */,
@@ -211,6 +239,7 @@
 			files = (
 				0DEE76CA19F14A0800F6F7A7 /* Main.storyboard in Resources */,
 				0DEE76CF19F14A0800F6F7A7 /* LaunchScreen.xib in Resources */,
+				0DC790EE1A14F6AA0097EB37 /* Loading@2x.gif in Resources */,
 				0DEE76CC19F14A0800F6F7A7 /* Images.xcassets in Resources */,
 				0DC7A86A19F15EC90022AC95 /* AnnoyingNotification.xib in Resources */,
 			);
@@ -233,6 +262,7 @@
 				0DEE76E619F14A4C00F6F7A7 /* SwiftOverlays.swift in Sources */,
 				0DEE76E819F14D5F00F6F7A7 /* OverlayExampleVC.swift in Sources */,
 				0DEE76C519F14A0800F6F7A7 /* MasterVC.swift in Sources */,
+				0DC790E71A14F3180097EB37 /* PPSwiftGifs.swift in Sources */,
 				0DEE76C319F14A0800F6F7A7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +390,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Example/Example-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -371,6 +402,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Example/Example-Bridging-Header.h";
 			};
 			name = Release;
 		};
