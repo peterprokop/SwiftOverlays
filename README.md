@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
+
 # SwiftOverlays
 
 SwiftOverlays is a Swift GUI library for displaying various popups and notifications.
