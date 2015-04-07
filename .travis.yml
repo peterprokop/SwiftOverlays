@@ -1,7 +1,7 @@
 language: objective-c
 env:
   global:
-  - APP_NAME="Crowdshipping"
+  - APP_NAME="SwiftOverlays"
 before_script:
   - brew update
   - brew outdated xctool || brew upgrade xctool
