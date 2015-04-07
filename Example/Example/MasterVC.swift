@@ -54,11 +54,14 @@ class MasterVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? UITableViewCell
 
-        let object = exampleDescriptions[indexPath.row]
-        cell.textLabel!.text = object
-        return cell
+        let exampleDescription = exampleDescriptions[indexPath.row]
+        if let textLabel = cell?.textLabel {
+            textLabel.text = exampleDescription
+        }
+    
+        return cell!
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
