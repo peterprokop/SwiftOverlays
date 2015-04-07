@@ -11,6 +11,7 @@
 		0DC790E91A14F32F0097EB37 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC790E81A14F32F0097EB37 /* ImageIO.framework */; };
 		0DC790EE1A14F6AA0097EB37 /* Loading@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */; };
 		0DC7A86A19F15EC90022AC95 /* AnnoyingNotification.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DC7A86919F15EC90022AC95 /* AnnoyingNotification.xib */; };
+		0DEE2E601AD3D39D00DDCC32 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DEE2E5F1AD3D39D00DDCC32 /* .travis.yml */; };
 		0DEE76C319F14A0800F6F7A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE76C219F14A0800F6F7A7 /* AppDelegate.swift */; };
 		0DEE76C519F14A0800F6F7A7 /* MasterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE76C419F14A0800F6F7A7 /* MasterVC.swift */; };
 		0DEE76CA19F14A0800F6F7A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DEE76C819F14A0800F6F7A7 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		0DC790EB1A14F6740097EB37 /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Loading@2x.gif"; sourceTree = "<group>"; };
 		0DC7A86919F15EC90022AC95 /* AnnoyingNotification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnoyingNotification.xib; sourceTree = "<group>"; };
+		0DEE2E5F1AD3D39D00DDCC32 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .travis.yml; path = ../../.travis.yml; sourceTree = "<group>"; };
 		0DEE76BD19F14A0800F6F7A7 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DEE76C119F14A0800F6F7A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DEE76C219F14A0800F6F7A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		0DEE76BF19F14A0800F6F7A7 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				0DEE2E5F1AD3D39D00DDCC32 /* .travis.yml */,
 				0DC790EC1A14F6A30097EB37 /* Res */,
 				0DC790EB1A14F6740097EB37 /* Example-Bridging-Header.h */,
 				0DEE76E719F14D5F00F6F7A7 /* OverlayExampleVC.swift */,
@@ -237,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DEE2E601AD3D39D00DDCC32 /* .travis.yml in Resources */,
 				0DEE76CA19F14A0800F6F7A7 /* Main.storyboard in Resources */,
 				0DEE76CF19F14A0800F6F7A7 /* LaunchScreen.xib in Resources */,
 				0DC790EE1A14F6AA0097EB37 /* Loading@2x.gif in Resources */,
