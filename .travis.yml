@@ -1,10 +1,9 @@
 language: objective-c
 env:
   global:
-  - APP_NAME="SwiftOverlays"
+  - APP_NAME="SwiftOverlays"czx
 before_script:
   - brew update
   - brew outdated xctool || brew upgrade xctool
-  - agvtool new-version -all $TRAVIS_BUILD_NUMBER
 script:
   - xctool -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator8.1 test
