@@ -57,7 +57,7 @@ class MasterVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
         let object = exampleDescriptions[indexPath.row]
-        cell.textLabel.text = object
+        cell.textLabel!.text = object
         return cell
     }
     
