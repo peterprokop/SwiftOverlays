@@ -19,7 +19,7 @@ class PPSwiftGifs
         let orderedScales = [screenScale] + possibleScales.filter{$0 != screenScale}
         
         let tmp = orderedScales.map{["@" + String($0) + "x", "@" + String($0) + "X"]}
-        let orderedSuffixes = tmp.reduce([], +) + [""]
+        let orderedSuffixes = tmp.reduce([], combine: +) + [""]
 
         for suffix in orderedSuffixes {
             if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif") {
@@ -43,7 +43,7 @@ class PPSwiftGifs
     // MARK: Private
     private class func animatedImageWithImageSource (source: CGImageSourceRef) -> UIImage?	{
         let (images, delays) = createImagesAndDelays(source);
-        let totalDuration = delays.reduce(0, +)
+        let totalDuration = delays.reduce(0, combine: +)
         let frames = frameArray(images, delays, totalDuration)
         
         // All durations in GIF are in 1/100th of second
