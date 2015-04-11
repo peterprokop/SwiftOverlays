@@ -37,8 +37,8 @@ class MasterVC: UITableViewController {
         if segue.identifier == "showOverlayExample" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let type = types[indexPath.row]
-                (segue.destinationViewController as OverlayExampleVC).type = type
-                (segue.destinationViewController as UIViewController).title = exampleDescriptions[indexPath.row]
+                (segue.destinationViewController as! OverlayExampleVC).type = type
+                (segue.destinationViewController as! UIViewController).title = exampleDescriptions[indexPath.row]
             }
         }
     }
