@@ -40,19 +40,22 @@ You can use UIViewController convenience methods provided by library:
 ```swift
 // In your view controller:
 
+// Wait overlay
 self.showWaitOverlay()
-// (Wait overlay)
 
+// Wait overlay with text
 let text = "Please wait..."
 self.showWaitOverlayWithText(text)
-// (Wait overlay with text)
 
+// Overlay with text only
 let text = "This is a text-only overlay...\n...spanning several lines"
 self.showTextOverlay(text)
-// (Overlay with text only)
 
+// Remove everything
+self.removeAllOverlays()
+
+// Notification on top of the status bar
 UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
-// (Notification on top of the status bar)
 ```
 
 ## Contribution
