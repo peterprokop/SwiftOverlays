@@ -60,7 +60,7 @@ class PPSwiftGifs
         var delays = Array<Int>()
         
         for i in 0 ..< count {
-            images.append(CGImageSourceCreateImageAtIndex(source, UInt(i), nil))
+            images.append(CGImageSourceCreateImageAtIndex(source, i, [:]))
             delays.append(delayForImageAtIndex(source, UInt(i)))
         }
         
@@ -70,7 +70,7 @@ class PPSwiftGifs
     private class func delayForImageAtIndex(source: CGImageSourceRef, _ i: UInt) -> Int {
         var delay = 1
 
-        let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+        let properties = CGImageSourceCopyPropertiesAtIndex(source, Int(i), [:])
         
         if (properties != nil) {
             let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, UnsafePointer<Void>.self)
