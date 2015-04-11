@@ -31,6 +31,10 @@ extension UIViewController {
     class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
     }
+    
+    func removeAllOverlays() -> Void  {
+        SwiftOverlays.removeAllOverlaysFromView(self.view)
+    }
 }
 
 class SwiftOverlays: NSObject
