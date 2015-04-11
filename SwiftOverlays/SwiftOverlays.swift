@@ -11,7 +11,7 @@ import UIKit
 
 
 // For convenience methods
-extension UIViewController {
+public extension UIViewController {
     func showWaitOverlay() -> UIView {
         return SwiftOverlays.showCenteredWaitOverlay(self.view)
     }
@@ -37,8 +37,7 @@ extension UIViewController {
     }
 }
 
-class SwiftOverlays: NSObject
-{
+public class SwiftOverlays: NSObject {
     // Workaround for "Class variables not yet supported"
     // You can customize these values
     struct Statics {
@@ -62,7 +61,7 @@ class SwiftOverlays: NSObject
     
     // MARK: Public class methods
     
-    class func showCenteredWaitOverlay(parentView: UIView) -> UIView {
+    public class func showCenteredWaitOverlay(parentView: UIView) -> UIView {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
         ai.startAnimating()
         
@@ -89,20 +88,20 @@ class SwiftOverlays: NSObject
         return containerView
     }
     
-    class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString) -> UIView  {
+    public class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString) -> UIView  {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         ai.startAnimating()
         
         return showGenericOverlay(parentView, text: text, accessoryView: ai)
     }
     
-    class func showImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
+    public class func showImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
         let imageView = UIImageView(image: image)
         
         return showGenericOverlay(parentView, text: text, accessoryView: imageView)
     }
 
-    class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView) -> UIView {
+    public class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView) -> UIView {
         let label = labelForText(text)
         label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + Statics.padding * 2, Statics.padding)
         
@@ -133,7 +132,7 @@ class SwiftOverlays: NSObject
         return containerView
     }
     
-    class func showTextOverlay(parentView: UIView, text: NSString) -> UIView  {
+    public class func showTextOverlay(parentView: UIView, text: NSString) -> UIView  {
         let label = labelForText(text)
         label.frame = CGRectOffset(label.frame, Statics.padding, Statics.padding)
         
@@ -161,7 +160,7 @@ class SwiftOverlays: NSObject
         return containerView
     }
     
-    class func removeAllOverlaysFromView(parentView: UIView) {
+    public class func removeAllOverlaysFromView(parentView: UIView) {
         var overlay: UIView?
 
         while true {
@@ -174,7 +173,7 @@ class SwiftOverlays: NSObject
         }
     }
     
-    class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
+    public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         if PrivateStaticVars.bannerWindow == nil {
             PrivateStaticVars.bannerWindow = UIWindow()
             PrivateStaticVars.bannerWindow!.windowLevel = UIWindowLevelStatusBar + 1
@@ -191,7 +190,7 @@ class SwiftOverlays: NSObject
         self.performSelector(selector, withObject: notificationView, afterDelay: duration)
     }
     
-    class func closeAnnoyingNotificationOnTopOfStatusBar(sender: AnyObject) {
+    public class func closeAnnoyingNotificationOnTopOfStatusBar(sender: AnyObject) {
         NSObject.cancelPreviousPerformRequestsWithTarget(self)
     
         var notificationView: UIView?
