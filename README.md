@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
+[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays) ([unfortunately, Travis CI does not support Swift 1.2 yet](https://github.com/travis-ci/travis-ci/issues/3216))
 
 # SwiftOverlays
 
@@ -30,8 +30,8 @@ Just add ```SwiftOverlays.swift``` to your project.
 ## Requirements
 
 - iOS 7.0+
-- Xcode 6.1
-
+- Xcode 6.3
+- Swift 1.2 (if you need Swift 1.1, use [swift-1.1 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1))
 
 ## Usage
 
