@@ -25,7 +25,23 @@ Currently SwiftOverlays provides 5 ways to notify user:
 
 ## Installation
 
-Just add ```SwiftOverlays.swift``` to your project.
+### Manual
+Just clone and add ```SwiftOverlays.swift``` to your project.
+
+### Cocoapods
+- Make sure that your Cocoapods version is >= 0.36: `pod --version`
+- If not, update it: `sudo gem install cocoapods`
+- `pod init` in you project root dir
+- `nano Podfile`, add:
+
+```
+pod 'SwiftOverlays', '~> 0.11'
+use_frameworks! 
+``` 
+- Save it: `ctrl-x`, `y`, `enter`
+- `pod update`
+- open generated `.xcworkspace`
+- Don't forget to import SwiftOverlays: `import SwiftOverlays`!
 
 ## Requirements
 
@@ -34,6 +50,8 @@ Just add ```SwiftOverlays.swift``` to your project.
 - Swift 1.2 (if you need Swift 1.1, use [swift-1.1 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1))
 
 ## Usage
+
+If you're using CocoaPods, import the library with `import SwiftOverlays`
 
 You can use UIViewController convenience methods provided by library:
 
