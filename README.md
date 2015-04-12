@@ -40,12 +40,12 @@ use_frameworks!
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
 - `pod update`
-- open generated `.xcworkspace`
+- Open generated `.xcworkspace`
 - Don't forget to import SwiftOverlays: `import SwiftOverlays`!
 
 ## Requirements
 
-- iOS 7.0+
+- iOS 7.0+ (8.0+ if you use Cocoapods)
 - Xcode 6.3
 - Swift 1.2 (if you need Swift 1.1, use [swift-1.1 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1))
 
