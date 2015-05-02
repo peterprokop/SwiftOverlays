@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+typealias SwiftOverlaysTapCallback = () -> ()
 
 // For convenience methods
 extension UIViewController {
@@ -28,8 +29,8 @@ extension UIViewController {
         return SwiftOverlays.showImageAndTextOverlay(self.view, image: image, text: text)
     }
     
-    class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
-        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
+    func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval, tapCallback: SwiftOverlaysTapCallback?) {
+        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration, tapCallback: tapCallback)
     }
 }
 
@@ -55,6 +56,8 @@ class SwiftOverlays: NSObject
     private struct PrivateStaticVars {
         static var bannerWindow : UIWindow?
     }
+    
+    private static var tapCallback: SwiftOverlaysTapCallback?
     
     // MARK: Public class methods
     
@@ -170,7 +173,9 @@ class SwiftOverlays: NSObject
         }
     }
     
-    class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
+    class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval, tapCallback: SwiftOverlaysTapCallback?) {
+        SwiftOverlays.tapCallback = tapCallback
+        
         if PrivateStaticVars.bannerWindow == nil {
             PrivateStaticVars.bannerWindow = UIWindow()
             PrivateStaticVars.bannerWindow!.windowLevel = UIWindowLevelStatusBar + 1
@@ -209,6 +214,10 @@ class SwiftOverlays: NSObject
                 PrivateStaticVars.bannerWindow!.hidden = true
             }
         )
+        
+        if let callback = SwiftOverlays.tapCallback {
+            callback()
+        }
     }
     
     // MARK: Private class methods
