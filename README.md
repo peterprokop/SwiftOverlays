@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays) ([unfortunately, Travis CI does not support Swift 1.2 yet](https://github.com/travis-ci/travis-ci/issues/3216))
+[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
 
 # SwiftOverlays
 
