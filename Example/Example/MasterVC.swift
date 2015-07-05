@@ -35,10 +35,10 @@ class MasterVC: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showOverlayExample" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 let type = types[indexPath.row]
                 (segue.destinationViewController as! OverlayExampleVC).type = type
-                (segue.destinationViewController as! UIViewController).title = exampleDescriptions[indexPath.row]
+                (segue.destinationViewController as UIViewController).title = exampleDescriptions[indexPath.row]
             }
         }
     }
@@ -54,14 +54,14 @@ class MasterVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         let exampleDescription = exampleDescriptions[indexPath.row]
-        if let textLabel = cell?.textLabel {
+        if let textLabel = cell.textLabel {
             textLabel.text = exampleDescription
         }
     
-        return cell!
+        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
