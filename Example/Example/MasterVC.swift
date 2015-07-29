@@ -14,9 +14,20 @@ class MasterVC: UITableViewController {
         "Wait overlay with text",
         "Overlay with text only",
         "Image and text overlay",
-        "Annoying notification on top"]
+        "Annoying notification on top",
+        "Blocking wait overlay",
+        "Blocking wait overlay with text"
+    ]
     
-    var types: Array<OverlayExampleVC.ExampleType> = [.Wait, .WaitWithText, .TextOnly, .ImageAndText, .AnnoyingNotification]
+    var types: Array<OverlayExampleVC.ExampleType> = [
+        .Wait,
+        .WaitWithText,
+        .TextOnly,
+        .ImageAndText,
+        .AnnoyingNotification,
+        .BlockingWait,
+        .BlockingWaitWithText
+    ]
 
     override func awakeFromNib() {
         super.awakeFromNib()

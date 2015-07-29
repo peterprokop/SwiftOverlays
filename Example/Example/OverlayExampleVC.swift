@@ -15,23 +15,36 @@ class OverlayExampleVC: UIViewController {
         case TextOnly
         case ImageAndText
         case AnnoyingNotification
+        case BlockingWait
+        case BlockingWaitWithText
     }
     
     @IBOutlet var annoyingNotificationView: UIView?
     
     var type: ExampleType = .Wait
 
+    var beginTimer: NSTimer?
+    var endTimer: NSTimer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.begin()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let beginTimer = beginTimer {
+            beginTimer.invalidate()
+        }
+        
+        if let endTimer = endTimer {
+            endTimer.invalidate()
+        }
+        
+        SwiftOverlays.removeAllBlockingOverlays()
     }
-    
     
     // MARK: begin/end
     func begin() {
@@ -68,19 +81,19 @@ class OverlayExampleVC: UIViewController {
             // Or SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
             
             return
+            
+        case .BlockingWait:
+            SwiftOverlays.showBlockingWaitOverlay()
+            
+        case .BlockingWaitWithText:
+            SwiftOverlays.showBlockingWaitOverlayWithText("This is blocking overlay!")
         }
         
-        let delay = 2.0 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-
-        dispatch_after(time, dispatch_get_main_queue(), {
-            [weak self] in
-            
-            let strongSelf = self
-            if strongSelf != nil {
-                strongSelf!.end()
-            }
-        })
+        if let endTimer = endTimer {
+            endTimer.invalidate()
+        }
+        
+        endTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "end", userInfo: nil, repeats: false)
     }
     
     func end() {
@@ -88,20 +101,18 @@ class OverlayExampleVC: UIViewController {
         case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
             
+        case .BlockingWait, .BlockingWaitWithText:
+            SwiftOverlays.removeAllBlockingOverlays()
+            
         case .AnnoyingNotification:
             return
         }
         
-        let delay = 0.5 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
-        dispatch_after(time, dispatch_get_main_queue(), {
-            [weak self] in
-            
-            let strongSelf = self
-            if strongSelf != nil {
-                self!.begin()
-            }
-        })
+        if let beginTimer = beginTimer {
+            beginTimer.invalidate()
+        }
+        
+        beginTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "begin", userInfo: nil, repeats: false)
     }
 }

@@ -59,7 +59,44 @@ public class SwiftOverlays: NSObject {
         static var bannerWindow : UIWindow?
     }
     
-    // MARK: Public class methods
+    // MARK: - Public class methods -
+    
+    // MARK: Blocking
+    
+    public class func showBlockingWaitOverlay() -> UIView {
+        let blocker = addMainWindowBlocker()
+        showCenteredWaitOverlay(blocker)
+        
+        return blocker
+    }
+    
+    public class func showBlockingWaitOverlayWithText(text: NSString) -> UIView {
+        let blocker = addMainWindowBlocker()
+        showCenteredWaitOverlayWithText(blocker, text: text)
+        
+        return blocker
+    }
+    
+    public class func showBlockingImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
+        let blocker = addMainWindowBlocker()
+        showImageAndTextOverlay(blocker, image: image, text: text)
+        
+        return blocker
+    }
+    
+    public class func showBlockingTextOverlay(text: NSString) -> UIView  {
+        let blocker = addMainWindowBlocker()
+        showTextOverlay(blocker, text: text)
+        
+        return blocker
+    }
+    
+    public class func removeAllBlockingOverlays() {
+        let window = UIApplication.sharedApplication().delegate!.window!!
+        removeAllOverlaysFromView(window)
+    }
+    
+    // MARK: Non-blocking
     
     public class func showCenteredWaitOverlay(parentView: UIView) -> UIView {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
@@ -214,7 +251,7 @@ public class SwiftOverlays: NSObject {
         )
     }
     
-    // MARK: Private class methods
+    // MARK: - Private class methods -
     
     private class func labelForText(text: NSString) -> UILabel {
         let textSize = text.sizeWithAttributes([NSFontAttributeName: Statics.font])
@@ -231,5 +268,17 @@ public class SwiftOverlays: NSObject {
         label.numberOfLines = 0
         
         return label;
+    }
+    
+    private class func addMainWindowBlocker() -> UIView {
+        let window = UIApplication.sharedApplication().delegate!.window!!
+        
+        let blocker = UIView(frame: window.bounds)
+        blocker.backgroundColor = Statics.backgroundColor
+        blocker.tag = Statics.containerViewTag
+        
+        window.addSubview(blocker)
+        
+        return blocker
     }
 }
