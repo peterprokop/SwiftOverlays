@@ -48,6 +48,7 @@ use_frameworks!
 - iOS 7.0+ (8.0+ if you use Cocoapods)
 - Xcode 6.3
 - Swift 1.2 (if you need Swift 1.1, use [swift-1.1 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1))
+- For Swift 2.0 use [swift-2.0 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-2.0)
 
 ## Usage
 
