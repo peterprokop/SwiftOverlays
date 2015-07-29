@@ -85,6 +85,20 @@ SwiftOverlays.removeAllBlockingOverlays()
 
 ```
 
+### Using with UITableViewController
+
+You can't use SwiftOverlays convenience methods directly with UITableViewController - because its view is, well, an UITableView, and overlay will be scrolled along with it.
+
+Instead I suggest using UIViewController instead of UITableViewController and adding UITableView as a subview.
+
+If for some reason you can't use UIViewController, you can do something like:
+```swift
+SwiftOverlays.showCenteredWaitOverlayWithText(self.view.superview!, text: "Please wait...")
+SwiftOverlays.removeAllOverlaysFromView(self.view.superview!)
+```
+
+(but in that case overlay will be added to the superview, and you should obviously do that only if superview is available - for example in viewDidAppear method of your controller.).
+
 ## Contribution
 
 You are welcome to fork and submit pull requests
