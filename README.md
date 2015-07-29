@@ -7,7 +7,7 @@ SwiftOverlays is a Swift GUI library for displaying various popups and notificat
 
 ## Features
 
-Currently SwiftOverlays provides 5 ways to notify user:
+SwiftOverlays provides several ways to notify user:
 
 - [x] Wait overlay: a simple overlay with activity indicator
 
@@ -19,6 +19,7 @@ Currently SwiftOverlays provides 5 ways to notify user:
 
 - [x] Overlay with text only
 - [x] Overlay with image and text (can be used with [PPSwiftGifs](https://github.com/peterprokop/PPSwiftGifs) to show custom animated GIF instead of UIActivityIndicatorView)
+- [x] All of the above with blocking any user interaction
 - [x] Notification on top of the status bar, similar to native iOS local/push notifications
 
 ![Notification](https://i.imgflip.com/df5k5.gif)
@@ -35,7 +36,7 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 - `nano Podfile`, add:
 
 ```
-pod 'SwiftOverlays', '~> 0.11'
+pod 'SwiftOverlays', '~> 0.14'
 use_frameworks! 
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
@@ -75,6 +76,13 @@ self.removeAllOverlays()
 
 // Notification on top of the status bar
 UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+
+// Block user interaction
+SwiftOverlays.showBlockingWaitOverlayWithText("This is blocking overlay!")
+
+// Don't forget to unblock!
+SwiftOverlays.removeAllBlockingOverlays()
+
 ```
 
 ## Contribution
