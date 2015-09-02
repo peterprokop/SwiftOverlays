@@ -204,7 +204,7 @@ public class SwiftOverlays: NSObject {
         UIView.animateWithDuration(Statics.bannerDissapearAnimationDuration,
             animations: { () -> Void in
                 let frame = notificationView!.frame
-                notificationView!.frame = frame.rectByOffsetting(dx: 0, dy: -frame.size.height)
+                notificationView!.frame = frame.offsetBy(dx: 0, dy: -frame.size.height)
             },
             completion: { (finished) -> Void in
                 notificationView!.removeFromSuperview()
