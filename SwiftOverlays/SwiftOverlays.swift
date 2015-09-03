@@ -67,7 +67,7 @@ public class SwiftOverlays: NSObject {
         
             :param: innerView View to set constraints on
         */
-        public static func centerViewInSuperiew(view: UIView) {
+        public static func centerViewInSuperview(view: UIView) {
             assert(view.superview != nil, "`view` should have a superview")
             
             view.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -167,7 +167,7 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
-        Utils.centerViewInSuperiew(containerView)
+        Utils.centerViewInSuperview(containerView)
         
         return containerView
     }
@@ -213,7 +213,7 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
-        Utils.centerViewInSuperiew(containerView)
+        Utils.centerViewInSuperview(containerView)
 
         return containerView
     }
@@ -243,7 +243,7 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
-        Utils.centerViewInSuperiew(containerView)
+        Utils.centerViewInSuperview(containerView)
         
         
         return containerView
