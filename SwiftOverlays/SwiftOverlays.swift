@@ -59,6 +59,51 @@ public class SwiftOverlays: NSObject {
         static var bannerWindow : UIWindow?
     }
     
+    public class Utils {
+        
+        /**
+            Adds autolayout constraints to innerView to center it in its superview and fix its size.
+            `innerView` should have a superview.
+        
+            :param: innerView View to set constraints on
+        */
+        public static func centerViewInSuperiew(view: UIView) {
+            assert(view.superview != nil, "`view` should have a superview")
+            
+            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+            
+            let constraintH = NSLayoutConstraint(item: view,
+                attribute: NSLayoutAttribute.CenterX,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view.superview,
+                attribute: NSLayoutAttribute.CenterX,
+                multiplier: 1,
+                constant: 0)
+            let constraintV = NSLayoutConstraint(item: view,
+                attribute: NSLayoutAttribute.CenterY,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: view.superview,
+                attribute: NSLayoutAttribute.CenterY,
+                multiplier: 1,
+                constant: 0)
+            let constraintWidth = NSLayoutConstraint(item: view,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.NotAnAttribute,
+                multiplier: 1,
+                constant: view.frame.size.width)
+            let constraintHeight = NSLayoutConstraint(item: view,
+                attribute: NSLayoutAttribute.Height,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.NotAnAttribute,
+                multiplier: 1,
+                constant: view.frame.size.height)
+            view.superview!.addConstraints([constraintV, constraintH, constraintWidth, constraintHeight])
+        }
+    }
+    
     // MARK: - Public class methods -
     
     // MARK: Blocking
@@ -122,6 +167,8 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
+        Utils.centerViewInSuperiew(containerView)
+        
         return containerView
     }
     
@@ -152,7 +199,7 @@ public class SwiftOverlays: NSObject {
             actualSize.height)
         
         let containerView = UIView(frame: containerViewRect)
-        
+     
         containerView.tag = Statics.containerViewTag
         containerView.layer.cornerRadius = Statics.cornerRadius
         containerView.backgroundColor = Statics.backgroundColor
@@ -166,6 +213,8 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
+        Utils.centerViewInSuperiew(containerView)
+
         return containerView
     }
     
@@ -194,6 +243,9 @@ public class SwiftOverlays: NSObject {
         
         parentView.addSubview(containerView)
         
+        Utils.centerViewInSuperiew(containerView)
+        
+        
         return containerView
     }
     
@@ -209,6 +261,8 @@ public class SwiftOverlays: NSObject {
             overlay!.removeFromSuperview()
         }
     }
+    
+    // MARK: Status bar notification
     
     public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         if PrivateStaticVars.bannerWindow == nil {
@@ -277,7 +331,24 @@ public class SwiftOverlays: NSObject {
         blocker.backgroundColor = Statics.backgroundColor
         blocker.tag = Statics.containerViewTag
         
+        blocker.setTranslatesAutoresizingMaskIntoConstraints(false)
+
         window.addSubview(blocker)
+        
+        let viewsDictionary = ["blocker": blocker]
+        
+        // Add constraints to handle orientation change
+        let constraintsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[blocker]-0-|",
+            options: NSLayoutFormatOptions(rawValue: 0),
+            metrics: nil,
+            views: viewsDictionary)
+        
+        let constraintsH = NSLayoutConstraint.constraintsWithVisualFormat("|-0-[blocker]-0-|",
+            options: NSLayoutFormatOptions(rawValue: 0),
+            metrics: nil,
+            views: viewsDictionary)
+        
+        window.addConstraints(constraintsV + constraintsH)
         
         return blocker
     }
