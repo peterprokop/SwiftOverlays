@@ -30,13 +30,13 @@ SwiftOverlays provides several ways to notify user:
 Just clone and add ```SwiftOverlays.swift``` to your project.
 
 ### Cocoapods
-- Make sure that your Cocoapods version is >= 0.36: `pod --version`
+- Make sure that you use latest stable Cocoapods version: `pod --version`
 - If not, update it: `sudo gem install cocoapods`
 - `pod init` in you project root dir
 - `nano Podfile`, add:
 
 ```
-pod 'SwiftOverlays', '~> 0.14'
+pod 'SwiftOverlays', '~> 1.0'
 use_frameworks! 
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
@@ -47,9 +47,8 @@ use_frameworks!
 ## Requirements
 
 - iOS 7.0+ (8.0+ if you use Cocoapods)
-- Xcode 6.3
-- Swift 1.2 (if you need Swift 1.1, use [swift-1.1 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1))
-- For Swift 2.0 use [swift-2.0 branch](https://github.com/peterprokop/SwiftOverlays/tree/swift-2.0)
+- Xcode 7.0
+- Swift 2.0 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2))
 
 ## Usage
 
