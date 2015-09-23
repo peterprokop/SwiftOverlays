@@ -65,12 +65,12 @@ public class SwiftOverlays: NSObject {
             Adds autolayout constraints to innerView to center it in its superview and fix its size.
             `innerView` should have a superview.
         
-            :param: innerView View to set constraints on
+            - parameter innerView: View to set constraints on
         */
         public static func centerViewInSuperview(view: UIView) {
             assert(view.superview != nil, "`view` should have a superview")
             
-            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+            view.translatesAutoresizingMaskIntoConstraints = false
             
             let constraintH = NSLayoutConstraint(item: view,
                 attribute: NSLayoutAttribute.CenterX,
@@ -295,7 +295,7 @@ public class SwiftOverlays: NSObject {
         UIView.animateWithDuration(Statics.bannerDissapearAnimationDuration,
             animations: { () -> Void in
                 let frame = notificationView!.frame
-                notificationView!.frame = frame.rectByOffsetting(dx: 0, dy: -frame.size.height)
+                notificationView!.frame = frame.offsetBy(dx: 0, dy: -frame.size.height)
             },
             completion: { (finished) -> Void in
                 notificationView!.removeFromSuperview()
@@ -331,7 +331,7 @@ public class SwiftOverlays: NSObject {
         blocker.backgroundColor = Statics.backgroundColor
         blocker.tag = Statics.containerViewTag
         
-        blocker.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blocker.translatesAutoresizingMaskIntoConstraints = false
 
         window.addSubview(blocker)
         

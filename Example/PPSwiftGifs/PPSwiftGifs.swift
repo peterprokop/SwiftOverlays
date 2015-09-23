@@ -23,9 +23,9 @@ class PPSwiftGifs
 
         for suffix in orderedSuffixes {
             if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif") {
-                let source = CGImageSourceCreateWithURL(url, nil)
-                
-                return animatedImageWithImageSource(source)
+                if let source = CGImageSourceCreateWithURL(url, nil) {
+                    return animatedImageWithImageSource(source)
+                }
             }
         }
         
@@ -60,8 +60,10 @@ class PPSwiftGifs
         var delays = Array<Int>()
         
         for i in 0 ..< count {
-            images.append(CGImageSourceCreateImageAtIndex(source, i, [:]))
-            delays.append(delayForImageAtIndex(source, UInt(i)))
+            if let image = CGImageSourceCreateImageAtIndex(source, i, [:]) {
+                images.append(image)
+                delays.append(delayForImageAtIndex(source, UInt(i)))
+            }
         }
         
         return (images, delays)
@@ -96,16 +98,16 @@ class PPSwiftGifs
         return delay;
     }
 
-    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> Array<AnyObject> {
+    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> [UIImage] {
         let delayGCD = gcd(delays)
-        let frameCount = totalDuration / delayGCD
+
         var frames = Array<UIImage>()
         frames.reserveCapacity(images.count)
 
         for i in 0 ..< images.count {
             let frame = UIImage(CGImage: images[i], scale: UIScreen.mainScreen().scale, orientation: .Up)
-            for j in 0 ..< delays[i]/delayGCD {
-                frames.append(frame!)
+            for _ in 0 ..< delays[i]/delayGCD {
+                frames.append(frame)
             }
         }
         
@@ -128,7 +130,7 @@ class PPSwiftGifs
 
     private class func gcd(var a: Int, var _ b: Int) -> Int {
         while (true) {
-            var r = a % b
+            let r = a % b
             if (r == 0) {
                 return b
             }
