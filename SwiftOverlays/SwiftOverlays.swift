@@ -20,6 +20,10 @@ public extension UIViewController {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
+    func updateWaitOverlayText(text: NSString) {
+        SwiftOverlays.updateOverlayText(self.view, text: text)
+    }
+    
     func showTextOverlay(text: NSString) -> UIView  {
         return SwiftOverlays.showTextOverlay(self.view, text: text)
     }
@@ -39,7 +43,7 @@ public extension UIViewController {
 
 public class SwiftOverlays: NSObject {
     // You can customize these values
-
+    
     // Some random number
     static let containerViewTag = 456987123
     
@@ -52,16 +56,16 @@ public class SwiftOverlays: NSObject {
     
     // Annoying notifications on top of status bar
     static let bannerDissapearAnimationDuration = 0.5
-
+    
     static var bannerWindow : UIWindow?
     
     public class Utils {
         
         /**
-            Adds autolayout constraints to innerView to center it in its superview and fix its size.
-            `innerView` should have a superview.
+        Adds autolayout constraints to innerView to center it in its superview and fix its size.
+        `innerView` should have a superview.
         
-            - parameter innerView: View to set constraints on
+        - parameter innerView: View to set constraints on
         */
         public static func centerViewInSuperview(view: UIView) {
             assert(view.superview != nil, "`view` should have a superview")
@@ -175,12 +179,27 @@ public class SwiftOverlays: NSObject {
         return showGenericOverlay(parentView, text: text, accessoryView: ai)
     }
     
+    public class func updateOverlayText(parentView: UIView, text: NSString) {
+        while true {
+            let overlay = parentView.viewWithTag(containerViewTag)
+            if overlay != nil {
+                for subview in overlay!.subviews {
+                    if let label = subview as? UILabel {
+                        label.text = text as String
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
     public class func showImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
         let imageView = UIImageView(image: image)
         
         return showGenericOverlay(parentView, text: text, accessoryView: imageView)
     }
-
+    
     public class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView) -> UIView {
         let label = labelForText(text)
         label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + padding * 2, padding)
@@ -195,7 +214,7 @@ public class SwiftOverlays: NSObject {
             actualSize.height)
         
         let containerView = UIView(frame: containerViewRect)
-     
+        
         containerView.tag = containerViewTag
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
@@ -210,7 +229,7 @@ public class SwiftOverlays: NSObject {
         parentView.addSubview(containerView)
         
         Utils.centerViewInSuperview(containerView)
-
+        
         return containerView
     }
     
@@ -234,7 +253,7 @@ public class SwiftOverlays: NSObject {
         containerView.backgroundColor = backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
             parentView.bounds.size.height/2);
-
+        
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)
@@ -247,7 +266,7 @@ public class SwiftOverlays: NSObject {
     
     public class func removeAllOverlaysFromView(parentView: UIView) {
         var overlay: UIView?
-
+        
         while true {
             overlay = parentView.viewWithTag(containerViewTag)
             if overlay == nil {
@@ -279,7 +298,7 @@ public class SwiftOverlays: NSObject {
     
     public class func closeAnnoyingNotificationOnTopOfStatusBar(sender: AnyObject) {
         NSObject.cancelPreviousPerformRequestsWithTarget(self)
-    
+        
         var notificationView: UIView?
         
         if sender.isKindOfClass(UITapGestureRecognizer) {
@@ -328,7 +347,7 @@ public class SwiftOverlays: NSObject {
         blocker.tag = containerViewTag
         
         blocker.translatesAutoresizingMaskIntoConstraints = false
-
+        
         window.addSubview(blocker)
         
         let viewsDictionary = ["blocker": blocker]
