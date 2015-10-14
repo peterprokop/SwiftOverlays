@@ -12,26 +12,71 @@ import UIKit
 
 // For convenience methods
 public extension UIViewController {
+    
+    /**
+        Shows wait overlay with activity indicator, centered in the view controller's main view
+    
+        Do not use this method for **UITableViewController** or **UICollectionViewController**
+    
+        - returns: Created overlay
+    */
     func showWaitOverlay() -> UIView {
         return SwiftOverlays.showCenteredWaitOverlay(self.view)
     }
     
+    /**
+        Shows wait overlay with activity indicator *and text*, centered in the view controller's main view
+        
+        Do not use this method for **UITableViewController** or **UICollectionViewController**
+        
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
     func showWaitOverlayWithText(text: NSString) -> UIView  {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
+    /**
+        Shows *text-only* overlay, centered in the view controller's main view
+        
+        Do not use this method for **UITableViewController** or **UICollectionViewController**
+        
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
     func showTextOverlay(text: NSString) -> UIView  {
         return SwiftOverlays.showTextOverlay(self.view, text: text)
     }
     
+    /**
+        Shows overlay *with image and text*, centered in the view controller's main view
+        
+        Do not use this method for **UITableViewController** or **UICollectionViewController**
+        
+        - parameter image: Image to be added to overlay
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
     func showImageAndTextOverlay(image: UIImage, text: NSString) -> UIView  {
         return SwiftOverlays.showImageAndTextOverlay(self.view, image: image, text: text)
     }
     
+    /**
+        Shows notification on top of the status bar, similar to native local or remote notifications
+
+        - parameter notificationView: View that will be shown as notification
+        - parameter duration: Amount of time until notification disappears
+    */
     class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
         SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
     }
     
+    /**
+        Removes all overlays from view controller's main view
+    */
     func removeAllOverlays() -> Void  {
         SwiftOverlays.removeAllOverlaysFromView(self.view)
     }
@@ -104,6 +149,11 @@ public class SwiftOverlays: NSObject {
     
     // MARK: Blocking
     
+    /**
+        Shows *blocking* wait overlay with activity indicator, centered in the app's main window
+    
+        - returns: Created overlay
+    */
     public class func showBlockingWaitOverlay() -> UIView {
         let blocker = addMainWindowBlocker()
         showCenteredWaitOverlay(blocker)
@@ -111,6 +161,13 @@ public class SwiftOverlays: NSObject {
         return blocker
     }
     
+    /**
+        Shows wait overlay with activity indicator *and text*, centered in the app's main window
+    
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
     public class func showBlockingWaitOverlayWithText(text: NSString) -> UIView {
         let blocker = addMainWindowBlocker()
         showCenteredWaitOverlayWithText(blocker, text: text)
@@ -118,13 +175,28 @@ public class SwiftOverlays: NSObject {
         return blocker
     }
     
-    public class func showBlockingImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
+    /**
+        Shows *blocking* overlay *with image and text*,, centered in the app's main window
+    
+        - parameter image: Image to be added to overlay
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
+    public class func showBlockingImageAndTextOverlay(image: UIImage, text: NSString) -> UIView  {
         let blocker = addMainWindowBlocker()
         showImageAndTextOverlay(blocker, image: image, text: text)
         
         return blocker
     }
     
+    /**
+        Shows *text-only* overlay, centered in the app's main window
+    
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
     public class func showBlockingTextOverlay(text: NSString) -> UIView  {
         let blocker = addMainWindowBlocker()
         showTextOverlay(blocker, text: text)
@@ -132,6 +204,9 @@ public class SwiftOverlays: NSObject {
         return blocker
     }
     
+    /**
+        Removes all *blocking* overlays from application's main window
+    */
     public class func removeAllBlockingOverlays() {
         let window = UIApplication.sharedApplication().delegate!.window!!
         removeAllOverlaysFromView(window)
