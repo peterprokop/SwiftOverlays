@@ -7,4 +7,4 @@ before_script:
   - brew update
   - brew outdated xctool || brew upgrade xctool
 script:
-  - xctool -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator8.3 test
+  - xctool -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator9.0 test
