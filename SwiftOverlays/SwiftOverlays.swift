@@ -80,6 +80,16 @@ public extension UIViewController {
     func removeAllOverlays() -> Void  {
         SwiftOverlays.removeAllOverlaysFromView(self.view)
     }
+    
+    /**
+        Updates text on the current overlay.
+        Does nothing if no overlay is present.
+    
+        - parameter text: Text to set
+    */
+    func updateOverlayText(text: NSString) {
+        SwiftOverlays.updateOverlayText(self.view, text: text)
+    }
 }
 
 public class SwiftOverlays: NSObject {
@@ -333,6 +343,16 @@ public class SwiftOverlays: NSObject {
         }
     }
     
+    public class func updateOverlayText(parentView: UIView, text: NSString) {
+        if let overlay = parentView.viewWithTag(containerViewTag) {
+            for subview in overlay.subviews {
+                if let label = subview as? UILabel {
+                    label.text = text as String
+                    break
+                }
+            }
+        }
+    }
     // MARK: Status bar notification
     
     public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {

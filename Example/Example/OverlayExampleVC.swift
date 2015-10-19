@@ -70,7 +70,7 @@ class OverlayExampleVC: UIViewController {
             let text = "Overlay\nWith cool GIF!"
             self.showImageAndTextOverlay(image!, text: text)
             // Or SwiftOverlays.showImageAndTextOverlay(self.view, image: image!, text: text)
-            
+
             return
             
         case .AnnoyingNotification:
