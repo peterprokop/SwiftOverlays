@@ -14,9 +14,10 @@ class MasterVC: UITableViewController {
         "Wait overlay with text",
         "Overlay with text only",
         "Image and text overlay",
+        "Progress",
         "Annoying notification on top",
         "Blocking wait overlay",
-        "Blocking wait overlay with text"
+        "Blocking wait overlay with text",
     ]
     
     var types: Array<OverlayExampleVC.ExampleType> = [
@@ -24,6 +25,7 @@ class MasterVC: UITableViewController {
         .WaitWithText,
         .TextOnly,
         .ImageAndText,
+        .Progress,
         .AnnoyingNotification,
         .BlockingWait,
         .BlockingWaitWithText

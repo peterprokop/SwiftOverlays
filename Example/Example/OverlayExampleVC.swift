@@ -14,6 +14,7 @@ class OverlayExampleVC: UIViewController {
         case WaitWithText
         case TextOnly
         case ImageAndText
+        case Progress
         case AnnoyingNotification
         case BlockingWait
         case BlockingWaitWithText
@@ -25,6 +26,8 @@ class OverlayExampleVC: UIViewController {
 
     var beginTimer: NSTimer?
     var endTimer: NSTimer?
+    
+    var progress = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +76,12 @@ class OverlayExampleVC: UIViewController {
 
             return
             
+        case .Progress:
+            self.showProgressOverlay("This is a progress overlay!")
+            endTimer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: "end", userInfo: nil, repeats: true)
+            
+            return
+            
         case .AnnoyingNotification:
             NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
@@ -100,6 +109,12 @@ class OverlayExampleVC: UIViewController {
         switch (type) {
         case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
+            
+        case .Progress:
+            progress += 0.01
+            let newProgressValue = Int(100*progress) % 101
+            self.updateOverlayProgress(Float(newProgressValue)/100)
+            return
             
         case .BlockingWait, .BlockingWaitWithText:
             SwiftOverlays.removeAllBlockingOverlays()

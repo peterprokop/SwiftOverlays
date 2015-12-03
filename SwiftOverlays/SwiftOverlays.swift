@@ -51,6 +51,19 @@ public extension UIViewController {
     }
     
     /**
+        Shows overlay with text and progress bar, centered in the view controller's main view
+        
+        Do not use this method for **UITableViewController** or **UICollectionViewController**
+        
+        - parameter text: Text to be shown on overlay
+    
+        - returns: Created overlay
+    */
+    func showProgressOverlay(text: NSString) -> UIView  {
+        return SwiftOverlays.showProgressOverlay(self.view, text: text)
+    }
+    
+    /**
         Shows overlay *with image and text*, centered in the view controller's main view
         
         Do not use this method for **UITableViewController** or **UICollectionViewController**
@@ -89,6 +102,16 @@ public extension UIViewController {
     */
     func updateOverlayText(text: NSString) {
         SwiftOverlays.updateOverlayText(self.view, text: text)
+    }
+    
+    /**
+        Updates progress on the current overlay.
+        Does nothing if no overlay is present.
+    
+        - parameter progress: Progress to set 0.0 .. 1.0
+    */
+    func updateOverlayProgress(progress: Float) {
+        SwiftOverlays.updateOverlayProgress(self.view, progress: progress)
     }
 }
 
@@ -266,12 +289,25 @@ public class SwiftOverlays: NSObject {
         return showGenericOverlay(parentView, text: text, accessoryView: imageView)
     }
 
-    public class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView) -> UIView {
+    public class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
         let label = labelForText(text)
-        label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + padding * 2, padding)
+        var actualSize = CGSizeZero
         
-        let actualSize = CGSizeMake(accessoryView.frame.size.width + label.frame.size.width + padding * 3,
-            max(label.frame.size.height, accessoryView.frame.size.height) + padding * 2)
+        if horizontalLayout {
+            actualSize = CGSizeMake(accessoryView.frame.size.width + label.frame.size.width + padding * 3,
+                max(label.frame.size.height, accessoryView.frame.size.height) + padding * 2)
+            
+             label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + padding * 2, padding)
+            
+            accessoryView.frame.offsetInPlace(dx: padding, dy: (actualSize.height - accessoryView.frame.size.height)/2)
+        } else {
+            actualSize = CGSizeMake(max(accessoryView.frame.size.width, label.frame.size.width) + padding * 2,
+                label.frame.size.height + accessoryView.frame.size.height + padding * 3)
+            
+            label.frame = CGRectOffset(label.frame, padding, accessoryView.frame.size.height + padding * 2)
+            
+            accessoryView.frame.offsetInPlace(dx: (actualSize.width - accessoryView.frame.size.width)/2, dy: padding)
+        }
         
         // Container view
         let containerViewRect = CGRectMake(0,
@@ -285,9 +321,7 @@ public class SwiftOverlays: NSObject {
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
-            parentView.bounds.size.height/2);
-        
-        accessoryView.frame = CGRectOffset(accessoryView.frame, padding, (actualSize.height - accessoryView.frame.size.height)/2)
+            parentView.bounds.size.height/2)
         
         containerView.addSubview(accessoryView)
         containerView.addSubview(label)
@@ -330,6 +364,12 @@ public class SwiftOverlays: NSObject {
         return containerView
     }
     
+    public class func showProgressOverlay(parentView: UIView, text: NSString) -> UIView  {
+        let pv = UIProgressView(progressViewStyle: .Default)
+        
+        return showGenericOverlay(parentView, text: text, accessoryView: pv, horizontalLayout: false)
+    }
+    
     public class func removeAllOverlaysFromView(parentView: UIView) {
         var overlay: UIView?
 
@@ -353,6 +393,18 @@ public class SwiftOverlays: NSObject {
             }
         }
     }
+    
+    public class func updateOverlayProgress(parentView: UIView, progress: Float) {
+        if let overlay = parentView.viewWithTag(containerViewTag) {
+            for subview in overlay.subviews {
+                if let pv = subview as? UIProgressView {
+                    pv.progress = progress
+                    break
+                }
+            }
+        }
+    }
+    
     // MARK: Status bar notification
     
     public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
