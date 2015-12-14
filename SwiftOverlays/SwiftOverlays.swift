@@ -435,15 +435,17 @@ public class SwiftOverlays: NSObject {
             notificationView = (sender as! UIView)
         }
         
+        bannerWindow?.backgroundColor = UIColor.clearColor()
         UIView.animateWithDuration(bannerDissapearAnimationDuration,
             animations: { () -> Void in
-                let frame = notificationView!.frame
-                notificationView!.frame = frame.offsetBy(dx: 0, dy: -frame.size.height)
+                if let frame = notificationView?.frame {
+                    notificationView?.frame = frame.offsetBy(dx: 0, dy: -frame.size.height)
+                }
             },
             completion: { (finished) -> Void in
-                notificationView!.removeFromSuperview()
+                notificationView?.removeFromSuperview()
                 
-                bannerWindow!.hidden = true
+                bannerWindow?.hidden = true
             }
         )
     }
