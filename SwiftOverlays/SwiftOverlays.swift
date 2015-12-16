@@ -37,6 +37,10 @@ public extension UIViewController {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
+    func showWaitOverlayWithText(text: NSString, withFontSize size: CGFloat) -> UIView {
+        return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text, fontSize: size)
+    }
+    
     /**
         Shows *text-only* overlay, centered in the view controller's main view
         
@@ -48,6 +52,10 @@ public extension UIViewController {
     */
     func showTextOverlay(text: NSString) -> UIView  {
         return SwiftOverlays.showTextOverlay(self.view, text: text)
+    }
+    
+    func showTextOverlay(text: NSString, withFontSize size: CGFloat) -> UIView {
+        return SwiftOverlays.showTextOverlay(self.view, text: text, fontSize: size)
     }
     
     /**
@@ -277,10 +285,14 @@ public class SwiftOverlays: NSObject {
     }
     
     public class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString) -> UIView  {
+        return showCenteredWaitOverlayWithText(parentView, text: text, fontSize: 14.0)
+    }
+    
+    public class func showCenteredWaitOverlayWithText(parentView: UIView, text: NSString, fontSize: CGFloat) -> UIView {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         ai.startAnimating()
         
-        return showGenericOverlay(parentView, text: text, accessoryView: ai)
+        return showGenericOverlay(parentView, text: text, fontSize: fontSize, accessoryView: ai)
     }
     
     public class func showImageAndTextOverlay(parentView: UIView, image: UIImage, text: NSString) -> UIView  {
@@ -290,14 +302,18 @@ public class SwiftOverlays: NSObject {
     }
 
     public class func showGenericOverlay(parentView: UIView, text: NSString, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
-        let label = labelForText(text)
+        return showGenericOverlay(parentView, text: text, fontSize: 14.0, accessoryView: accessoryView)
+    }
+    
+    public class func showGenericOverlay(parentView: UIView, text: NSString, fontSize: CGFloat, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
+        let label = labelForText(text, withFontSize: fontSize)
         var actualSize = CGSizeZero
         
         if horizontalLayout {
             actualSize = CGSizeMake(accessoryView.frame.size.width + label.frame.size.width + padding * 3,
                 max(label.frame.size.height, accessoryView.frame.size.height) + padding * 2)
             
-             label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + padding * 2, padding)
+            label.frame = CGRectOffset(label.frame, accessoryView.frame.size.width + padding * 2, padding)
             
             accessoryView.frame.offsetInPlace(dx: padding, dy: (actualSize.height - accessoryView.frame.size.height)/2)
         } else {
@@ -316,7 +332,7 @@ public class SwiftOverlays: NSObject {
             actualSize.height)
         
         let containerView = UIView(frame: containerViewRect)
-     
+        
         containerView.tag = containerViewTag
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
@@ -329,12 +345,16 @@ public class SwiftOverlays: NSObject {
         parentView.addSubview(containerView)
         
         Utils.centerViewInSuperview(containerView)
-
+        
         return containerView
     }
     
     public class func showTextOverlay(parentView: UIView, text: NSString) -> UIView  {
-        let label = labelForText(text)
+        return showTextOverlay(parentView, text: text, fontSize: 14)
+    }
+    
+    public class func showTextOverlay(parentView: UIView, text: NSString, fontSize: CGFloat) -> UIView {
+        let label = labelForText(text, withFontSize: fontSize)
         label.frame = CGRectOffset(label.frame, padding, padding)
         
         let actualSize = CGSizeMake(label.frame.size.width + padding * 2,
@@ -353,7 +373,7 @@ public class SwiftOverlays: NSObject {
         containerView.backgroundColor = backgroundColor
         containerView.center = CGPointMake(parentView.bounds.size.width/2,
             parentView.bounds.size.height/2);
-
+        
         containerView.addSubview(label)
         
         parentView.addSubview(containerView)
@@ -453,6 +473,11 @@ public class SwiftOverlays: NSObject {
     // MARK: - Private class methods -
     
     private class func labelForText(text: NSString) -> UILabel {
+        return labelForText(text, withFontSize: 14.0)
+    }
+    
+    private class func labelForText(text: NSString, withFontSize size: CGFloat) -> UILabel {
+        let font = UIFont.systemFontOfSize(size)
         let textSize = text.sizeWithAttributes([NSFontAttributeName: font])
         
         let labelRect = CGRectMake(0,
@@ -466,7 +491,7 @@ public class SwiftOverlays: NSObject {
         label.text = text as String
         label.numberOfLines = 0
         
-        return label;
+        return label
     }
     
     private class func addMainWindowBlocker() -> UIView {
