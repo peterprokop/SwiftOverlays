@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D3755511C674336002C2B7F /* SwiftOverlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEE76E519F14A4C00F6F7A7 /* SwiftOverlays.swift */; };
 		0D9008471C673C87003D334A /* SwiftOverlays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D90083D1C673C87003D334A /* SwiftOverlays.framework */; };
 		0D90084C1C673C87003D334A /* SwiftOverlaysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D90084B1C673C87003D334A /* SwiftOverlaysTests.swift */; };
 		0D9008561C673D0D003D334A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D9008541C673D0D003D334A /* Info.plist */; };
-		0D9008571C673D0D003D334A /* SwiftOverlays.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D9008551C673D0D003D334A /* SwiftOverlays.h */; };
+		0D9008571C673D0D003D334A /* SwiftOverlays.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D9008551C673D0D003D334A /* SwiftOverlays.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0DC790E71A14F3180097EB37 /* PPSwiftGifs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC790E61A14F3180097EB37 /* PPSwiftGifs.swift */; };
 		0DC790E91A14F32F0097EB37 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC790E81A14F32F0097EB37 /* ImageIO.framework */; };
 		0DC790EE1A14F6AA0097EB37 /* Loading@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0DC790ED1A14F6AA0097EB37 /* Loading@2x.gif */; };
@@ -381,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3755511C674336002C2B7F /* SwiftOverlays.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +460,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(SRC_ROOT)/**";
 				INFOPLIST_FILE = "$(SRCROOT)/../SwiftOverlays/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -482,6 +485,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(SRC_ROOT)/**";
 				INFOPLIST_FILE = "$(SRCROOT)/../SwiftOverlays/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -670,6 +674,7 @@
 				0D90084F1C673C87003D334A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D9008531C673C87003D334A /* Build configuration list for PBXNativeTarget "SwiftOverlaysTests" */ = {
 			isa = XCConfigurationList;
@@ -678,6 +683,7 @@
 				0D9008511C673C87003D334A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0DEE76B819F14A0800F6F7A7 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;
