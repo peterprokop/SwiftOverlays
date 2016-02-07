@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # SwiftOverlays
 
@@ -28,6 +29,16 @@ SwiftOverlays provides several ways to notify user:
 
 ### Manual
 Just clone and add ```SwiftOverlays.swift``` to your project.
+
+### Carthage
+* `> Cartfile`
+* `nano Cartfile`
+* put `github "peterprokop/SwiftOverlays" ~> 1.0.0` into Cartfile
+* Save it: `ctrl-x`, `y`, `enter`
+* Run `carthage update`
+* Copy `SwiftOverlays.framework` from `Carthage/Build/iOS` to your project
+* Make sure that `SwiftOverlays` is added in `Embedded Binaries` section of your target (or else you will get `dyld library not loaded referenced from ... reason image not found` error)
+* Add `import SwiftOverlays` on top of your view controller's code
 
 ### Cocoapods
 - Make sure that you use latest stable Cocoapods version: `pod --version`
