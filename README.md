@@ -40,8 +40,8 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 * Make sure that `SwiftOverlays` is added in `Embedded Binaries` section of your target (or else you will get `dyld library not loaded referenced from ... reason image not found` error)
 * Add `import SwiftOverlays` on top of your view controller's code
 
-### Cocoapods
-- Make sure that you use latest stable Cocoapods version: `pod --version`
+### CocoaPods
+- Make sure that you use latest stable CocoaPods version: `pod --version`
 - If not, update it: `sudo gem install cocoapods`
 - `pod init` in you project root dir
 - `nano Podfile`, add:
@@ -57,7 +57,7 @@ use_frameworks!
 
 ## Requirements
 
-- iOS 7.0+ (8.0+ if you use Cocoapods)
+- iOS 7.0+ (8.0+ if you use CocoaPods)
 - Xcode 7.0
 - Swift 2.0 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2))
 
