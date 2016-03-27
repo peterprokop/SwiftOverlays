@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'SwiftOverlays'
-  s.version = '1.0'
+  s.version = '2.0.0'
   s.license = 'MIT'
   s.summary = 'GUI library for displaying various popups and notifications'
   s.homepage = 'https://github.com/peterprokop/SwiftOverlays'
