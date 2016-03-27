@@ -78,7 +78,7 @@ class OverlayExampleVC: UIViewController {
             
         case .Progress:
             self.showProgressOverlay("This is a progress overlay!")
-            endTimer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: "end", userInfo: nil, repeats: true)
+            endTimer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(end), userInfo: nil, repeats: true)
             
             return
             
@@ -102,7 +102,7 @@ class OverlayExampleVC: UIViewController {
             endTimer.invalidate()
         }
         
-        endTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "end", userInfo: nil, repeats: false)
+        endTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
     }
     
     func end() {
@@ -128,6 +128,6 @@ class OverlayExampleVC: UIViewController {
             beginTimer.invalidate()
         }
         
-        beginTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "begin", userInfo: nil, repeats: false)
+        beginTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(begin), userInfo: nil, repeats: false)
     }
 }

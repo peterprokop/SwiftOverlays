@@ -128,14 +128,16 @@ class PPSwiftGifs
         return currentGCD;
     }
 
-    private class func gcd(var a: Int, var _ b: Int) -> Int {
-        while (true) {
+    private class func gcd(aNumber: Int, _ anotherNumber: Int) -> Int {
+        var a = aNumber
+        var b = anotherNumber
+        while true {
             let r = a % b
-            if (r == 0) {
+            if r == 0 {
                 return b
             }
-            a = b;
-            b = r;
+            a = b
+            b = r
         }
     }
 }
