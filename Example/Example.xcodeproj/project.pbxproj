@@ -310,6 +310,7 @@
 					};
 					0DEE76BC19F14A0800F6F7A7 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 97H7M775CZ;
 					};
 					0DEE76D319F14A0800F6F7A7 = {
 						CreatedOnToolsVersion = 6.0.1;

@@ -82,9 +82,10 @@ public extension UIViewController {
 
         - parameter notificationView: View that will be shown as notification
         - parameter duration: Amount of time until notification disappears
+        - parameter animated: Should appearing be animated
     */
-    class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
-        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration)
+    class func showNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval, animated: Bool = true) {
+        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration, animated: animated)
     }
     
     /**
@@ -407,10 +408,11 @@ public class SwiftOverlays: NSObject {
     
     // MARK: Status bar notification
     
-    public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval) {
+    public class func showAnnoyingNotificationOnTopOfStatusBar(notificationView: UIView, duration: NSTimeInterval, animated: Bool = true) {
         if bannerWindow == nil {
             bannerWindow = UIWindow()
             bannerWindow!.windowLevel = UIWindowLevelStatusBar + 1
+            bannerWindow!.backgroundColor = UIColor.clearColor()
         }
         
         bannerWindow!.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, notificationView.frame.size.height)
@@ -421,7 +423,23 @@ public class SwiftOverlays: NSObject {
         notificationView.addGestureRecognizer(gestureRecognizer)
         
         bannerWindow!.addSubview(notificationView)
-        self.performSelector(selector, withObject: notificationView, afterDelay: duration)
+        
+        if animated {
+            let frame = notificationView.frame
+            let origin = CGPoint(x: 0, y: -frame.height)
+            notificationView.frame = CGRect(origin: origin, size: frame.size)
+            
+            // Show appearing animation, schedule calling closing selector after completed
+            UIView.animateWithDuration(bannerDissapearAnimationDuration, animations: { 
+                let frame = notificationView.frame
+                notificationView.frame = frame.offsetBy(dx: 0, dy: frame.height)
+            }, completion: { (finished) in
+                self.performSelector(selector, withObject: notificationView, afterDelay: duration)
+            })
+        } else {
+            // Schedule calling closing selector right away
+            self.performSelector(selector, withObject: notificationView, afterDelay: duration)
+        }
     }
     
     public class func closeAnnoyingNotificationOnTopOfStatusBar(sender: AnyObject) {
@@ -435,7 +453,6 @@ public class SwiftOverlays: NSObject {
             notificationView = (sender as! UIView)
         }
         
-        bannerWindow?.backgroundColor = UIColor.clearColor()
         UIView.animateWithDuration(bannerDissapearAnimationDuration,
             animations: { () -> Void in
                 if let frame = notificationView?.frame {
