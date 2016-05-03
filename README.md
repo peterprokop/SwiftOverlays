@@ -20,7 +20,7 @@ SwiftOverlays provides several ways to notify user:
 
 - [x] Overlay with text only
 - [x] Overlay with image and text (can be used with [PPSwiftGifs](https://github.com/peterprokop/PPSwiftGifs) to show custom animated GIF instead of UIActivityIndicatorView)
-- [x] All of the above with blocking any user interaction
+- [x] All of the above without blocking any user interaction
 - [x] Notification on top of the status bar, similar to native iOS local/push notifications
 
 ![Notification](https://i.imgflip.com/df5k5.gif)
