@@ -10,22 +10,22 @@ import UIKit
 
 class OverlayExampleVC: UIViewController {
     enum ExampleType {
-        case Wait
-        case WaitWithText
-        case TextOnly
-        case ImageAndText
-        case Progress
-        case AnnoyingNotification
-        case BlockingWait
-        case BlockingWaitWithText
+        case wait
+        case waitWithText
+        case textOnly
+        case imageAndText
+        case progress
+        case annoyingNotification
+        case blockingWait
+        case blockingWaitWithText
     }
     
     @IBOutlet var annoyingNotificationView: UIView?
     
-    var type: ExampleType = .Wait
+    var type: ExampleType = .wait
 
-    var beginTimer: NSTimer?
-    var endTimer: NSTimer?
+    var beginTimer: Timer?
+    var endTimer: Timer?
     
     var progress = 0.0
     
@@ -35,7 +35,7 @@ class OverlayExampleVC: UIViewController {
         self.begin()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if let beginTimer = beginTimer {
@@ -52,38 +52,38 @@ class OverlayExampleVC: UIViewController {
     // MARK: begin/end
     func begin() {
         switch (type) {
-        case .Wait:
-            self.showWaitOverlay()
+        case .wait:
+            let _ = self.showWaitOverlay()
             // Or SwiftOverlays.showCenteredWaitOverlay(self.view)
             
-        case .WaitWithText:
+        case .waitWithText:
             let text = "Please wait..."
-            self.showWaitOverlayWithText(text)
+            let _ = self.showWaitOverlayWithText(text)
             // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
         
-        case .TextOnly:
+        case .textOnly:
             let text = "This is a text-only overlay...\n...spanning several lines"
-            self.showTextOverlay(text)
+            let _ = self.showTextOverlay(text)
             // Or SwiftOverlays.showTextOverlay(self.view, text: text)
             
             return
             
-        case .ImageAndText:
+        case .imageAndText:
             let image = PPSwiftGifs.animatedImageWithGIFNamed("Loading")
             let text = "Overlay\nWith cool GIF!"
-            self.showImageAndTextOverlay(image!, text: text)
+            let _ = self.showImageAndTextOverlay(image!, text: text)
             // Or SwiftOverlays.showImageAndTextOverlay(self.view, image: image!, text: text)
 
             return
             
-        case .Progress:
-            self.showProgressOverlay("This is a progress overlay!")
-            endTimer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(end), userInfo: nil, repeats: true)
+        case .progress:
+            let _ = self.showProgressOverlay("This is a progress overlay!")
+            endTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(end), userInfo: nil, repeats: true)
             
             return
             
-        case .AnnoyingNotification:
-            NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
+        case .annoyingNotification:
+            Bundle.main.loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
             
             UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
@@ -91,35 +91,35 @@ class OverlayExampleVC: UIViewController {
             
             return
             
-        case .BlockingWait:
-            SwiftOverlays.showBlockingWaitOverlay()
+        case .blockingWait:
+            let _ = SwiftOverlays.showBlockingWaitOverlay()
             
-        case .BlockingWaitWithText:
-            SwiftOverlays.showBlockingWaitOverlayWithText("This is blocking overlay!")
+        case .blockingWaitWithText:
+            let _ = SwiftOverlays.showBlockingWaitOverlayWithText("This is blocking overlay!")
         }
         
         if let endTimer = endTimer {
             endTimer.invalidate()
         }
         
-        endTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
+        endTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
     }
     
     func end() {
         switch (type) {
-        case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
+        case .wait, .waitWithText, .textOnly, .imageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
             
-        case .Progress:
+        case .progress:
             progress += 0.01
             let newProgressValue = Int(100*progress) % 101
             self.updateOverlayProgress(Float(newProgressValue)/100)
             return
             
-        case .BlockingWait, .BlockingWaitWithText:
+        case .blockingWait, .blockingWaitWithText:
             SwiftOverlays.removeAllBlockingOverlays()
             
-        case .AnnoyingNotification:
+        case .annoyingNotification:
             return
         }
         
@@ -128,6 +128,6 @@ class OverlayExampleVC: UIViewController {
             beginTimer.invalidate()
         }
         
-        beginTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(begin), userInfo: nil, repeats: false)
+        beginTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(begin), userInfo: nil, repeats: false)
     }
 }

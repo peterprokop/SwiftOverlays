@@ -21,14 +21,14 @@ class MasterVC: UITableViewController {
     ]
     
     var types: Array<OverlayExampleVC.ExampleType> = [
-        .Wait,
-        .WaitWithText,
-        .TextOnly,
-        .ImageAndText,
-        .Progress,
-        .AnnoyingNotification,
-        .BlockingWait,
-        .BlockingWaitWithText
+        .wait,
+        .waitWithText,
+        .textOnly,
+        .imageAndText,
+        .progress,
+        .annoyingNotification,
+        .blockingWait,
+        .blockingWaitWithText
     ]
 
     override func awakeFromNib() {
@@ -46,39 +46,39 @@ class MasterVC: UITableViewController {
 
     // MARK: - Segues
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showOverlayExample" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let type = types[indexPath.row]
+                let type = types[(indexPath as NSIndexPath).row]
                 (segue.destinationViewController as! OverlayExampleVC).type = type
-                (segue.destinationViewController ).title = exampleDescriptions[indexPath.row]
+                (segue.destinationViewController ).title = exampleDescriptions[(indexPath as NSIndexPath).row]
             }
         }
     }
 
     // MARK: - Table View
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exampleDescriptions.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let exampleDescription = exampleDescriptions[indexPath.row]
+        let exampleDescription = exampleDescriptions[(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = exampleDescription
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        self.performSegueWithIdentifier("showOverlayExample", sender: nil)
+        self.performSegue(withIdentifier: "showOverlayExample", sender: nil)
     }
 
 }
