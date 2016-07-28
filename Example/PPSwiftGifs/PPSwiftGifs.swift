@@ -13,16 +13,16 @@ import CoreFoundation
 class PPSwiftGifs
 {
     // MARK: Public
-    class func animatedImageWithGIFNamed(name: String!) -> UIImage? {
-        let screenScale = Int(UIScreen.mainScreen().scale)
+    class func animatedImageWithGIFNamed(_ name: String!) -> UIImage? {
+        let screenScale = Int(UIScreen.main().scale)
         let possibleScales = [1, 2, 3]
         let orderedScales = [screenScale] + possibleScales.filter{$0 != screenScale}
         
-        let tmp = orderedScales.map{["@" + String($0) + "x", "@" + String($0) + "X"]}
+        let tmp = orderedScales.map{["@\(String($0))x", "@\(String($0))X"]}
         let orderedSuffixes = tmp.reduce([], combine: +) + [""]
 
         for suffix in orderedSuffixes {
-            if let url = NSBundle.mainBundle().URLForResource(name + suffix, withExtension: "gif") {
+            if let url = Bundle.main.urlForResource(name + suffix, withExtension: "gif") {
                 if let source = CGImageSourceCreateWithURL(url, nil) {
                     return animatedImageWithImageSource(source)
                 }
@@ -32,7 +32,7 @@ class PPSwiftGifs
         return nil
     }
     
-    class func animatedImageWithGIFData(data: NSData!) -> UIImage? {
+    class func animatedImageWithGIFData(_ data: Data!) -> UIImage? {
         if let source = CGImageSourceCreateWithData(data, nil) {
             return animatedImageWithImageSource(source)
         }
@@ -41,22 +41,22 @@ class PPSwiftGifs
     }
     
     // MARK: Private
-    private class func animatedImageWithImageSource (source: CGImageSourceRef) -> UIImage?	{
+    private class func animatedImageWithImageSource (_ source: CGImageSource) -> UIImage?	{
         let (images, delays) = createImagesAndDelays(source);
         let totalDuration = delays.reduce(0, combine: +)
         let frames = frameArray(images, delays, totalDuration)
         
         // All durations in GIF are in 1/100th of second
-        let duration = NSTimeInterval(Double(totalDuration)/100.0)
-        let animation = UIImage.animatedImageWithImages(frames, duration: duration)
+        let duration = TimeInterval(Double(totalDuration)/100.0)
+        let animation = UIImage.animatedImage(with: frames, duration: duration)
 
         return animation
     }
     
-    private class func createImagesAndDelays(source: CGImageSourceRef) -> (Array<CGImageRef>, Array<Int>) {
+    private class func createImagesAndDelays(_ source: CGImageSource) -> (Array<CGImage>, Array<Int>) {
         let count = Int(CGImageSourceGetCount(source))
         
-        var images = Array<CGImageRef>()
+        var images = Array<CGImage>()
         var delays = Array<Int>()
         
         for i in 0 ..< count {
@@ -69,24 +69,24 @@ class PPSwiftGifs
         return (images, delays)
     }
     
-    private class func delayForImageAtIndex(source: CGImageSourceRef, _ i: UInt) -> Int {
+    private class func delayForImageAtIndex(_ source: CGImageSource, _ i: UInt) -> Int {
         var delay = 1
 
         let properties = CGImageSourceCopyPropertiesAtIndex(source, Int(i), [:])
         
         if (properties != nil) {
-            let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, UnsafePointer<Void>.self)
+            let gifDictionaryProperty = unsafeBitCast(kCGImagePropertyGIFDictionary, to: UnsafePointer<Void>.self)
             let gifProperties = CFDictionaryGetValue(properties, gifDictionaryProperty)
             
             if (gifProperties != nil) {
-                let gifPropertiesCFD = unsafeBitCast(gifProperties, CFDictionary.self)
+                let gifPropertiesCFD = unsafeBitCast(gifProperties, to: CFDictionary.self)
 
-                let unclampedDelayTimeProperty = unsafeBitCast(kCGImagePropertyGIFUnclampedDelayTime, UnsafePointer<Void>.self)
-                var number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, unclampedDelayTimeProperty), NSNumber.self);
+                let unclampedDelayTimeProperty = unsafeBitCast(kCGImagePropertyGIFUnclampedDelayTime, to: UnsafePointer<Void>.self)
+                var number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, unclampedDelayTimeProperty), to: NSNumber.self);
 
                 if (number.doubleValue == 0) {
-                    let delayTimeProperty = unsafeBitCast(kCGImagePropertyGIFDelayTime, UnsafePointer<Void>.self)
-                    number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, delayTimeProperty), NSNumber.self);
+                    let delayTimeProperty = unsafeBitCast(kCGImagePropertyGIFDelayTime, to: UnsafePointer<Void>.self)
+                    number = unsafeBitCast(CFDictionaryGetValue(gifPropertiesCFD, delayTimeProperty), to: NSNumber.self);
                 }
 
                 if (number.doubleValue > 0) {
@@ -98,14 +98,14 @@ class PPSwiftGifs
         return delay;
     }
 
-    private class func frameArray(images: Array<CGImageRef>, _ delays: Array<Int>, _ totalDuration: Int) -> [UIImage] {
+    private class func frameArray(_ images: Array<CGImage>, _ delays: Array<Int>, _ totalDuration: Int) -> [UIImage] {
         let delayGCD = gcd(delays)
 
         var frames = Array<UIImage>()
         frames.reserveCapacity(images.count)
 
         for i in 0 ..< images.count {
-            let frame = UIImage(CGImage: images[i], scale: UIScreen.mainScreen().scale, orientation: .Up)
+            let frame = UIImage(cgImage: images[i], scale: UIScreen.main().scale, orientation: .up)
             for _ in 0 ..< delays[i]/delayGCD {
                 frames.append(frame)
             }
@@ -114,7 +114,7 @@ class PPSwiftGifs
         return frames;
     }
     
-    private class func gcd(values: Array<Int>) -> Int {
+    private class func gcd(_ values: Array<Int>) -> Int {
         if values.count == 0 {
             return 1;
         }
@@ -128,7 +128,7 @@ class PPSwiftGifs
         return currentGCD;
     }
 
-    private class func gcd(aNumber: Int, _ anotherNumber: Int) -> Int {
+    private class func gcd(_ aNumber: Int, _ anotherNumber: Int) -> Int {
         var a = aNumber
         var b = anotherNumber
         while true {
