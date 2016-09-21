@@ -45,29 +45,29 @@ class MasterVC: UITableViewController {
     }
 
     // MARK: - Segues
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showOverlayExample" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let type = types[indexPath.row]
-                (segue.destinationViewController as! OverlayExampleVC).type = type
-                (segue.destinationViewController ).title = exampleDescriptions[indexPath.row]
+                (segue.destination as! OverlayExampleVC).type = type
+                (segue.destination ).title = exampleDescriptions[indexPath.row]
             }
         }
     }
 
     // MARK: - Table View
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exampleDescriptions.count
     }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
 
         let exampleDescription = exampleDescriptions[indexPath.row]
         
@@ -76,9 +76,8 @@ class MasterVC: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        self.performSegueWithIdentifier("showOverlayExample", sender: nil)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showOverlayExample", sender: nil)
     }
 
 }
