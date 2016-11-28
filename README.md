@@ -58,9 +58,9 @@ use_frameworks!
 ## Requirements
 
 - iOS 7.0+ (8.0+ if you use Cocoapods)
-- Xcode 7.3
-- Swift 2.2 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2),
-[swift-2.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-2.1))
+- Xcode 8.0+
+- Swift 3.0 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2),
+[swift-2.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-2.1) and others)
 
 ## Usage
 
