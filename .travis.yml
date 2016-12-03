@@ -3,8 +3,5 @@ osx_image: xcode8
 env:
   global:
   - APP_NAME="SwiftOverlays"
-before_script:
-  - brew update
-  - brew outdated xcbuild || brew upgrade xcbuild
 script:
-  - xcbuild -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator10.0 test
+  - xcodebuild -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator10.0 test
