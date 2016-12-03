@@ -47,7 +47,7 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 - `nano Podfile`, add:
 
 ```
-pod 'SwiftOverlays', '~> 2.0.0'
+pod 'SwiftOverlays', '~> 3.0.0'
 use_frameworks! 
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
