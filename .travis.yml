@@ -5,6 +5,6 @@ env:
   - APP_NAME="SwiftOverlays"
 before_script:
   - brew update
-  - brew outdated xctool || brew upgrade xctool
+  - brew outdated xcbuild || brew upgrade xcbuild
 script:
-  - xctool -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator10.0 test
+  - xcbuild -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -sdk iphonesimulator10.0 test
