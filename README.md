@@ -120,3 +120,4 @@ You are welcome to fork and submit pull requests
 ## Other Projects
 
 [StarryStars](https://github.com/peterprokop/StarryStars) - iOS GUI library for displaying and editing ratings.
+[AlertyAlert](https://github.com/peterprokop/AlertyAlert) - AlertyAlert is a nice and fluffy iOS alert library for all your alerty needs.
