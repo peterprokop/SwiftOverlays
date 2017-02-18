@@ -1,10 +1,11 @@
-[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
-# SwiftOverlays
+![Imgur](http://i.imgur.com/AFMWOiJ.gif)
 
 SwiftOverlays is a Swift GUI library for displaying various popups and notifications.
 
+SwiftOverlays animated logo is kindly made by [Crafted Pixels](http://bit.ly/craftedpx)
+
+[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Features
 
