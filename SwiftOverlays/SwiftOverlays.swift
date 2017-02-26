@@ -329,11 +329,12 @@ open class SwiftOverlays: NSObject {
             accessoryView.frame = accessoryView.frame.offsetBy(dx: padding, dy: (actualSize.height - accessoryView.frame.size.height)/2)
         } else {
             actualSize = CGSize(width: max(accessoryView.frame.size.width, label.frame.size.width) + padding * 2,
-                height: label.frame.size.height + accessoryView.frame.size.height + padding * 3)
-            
-            label.frame = label.frame.offsetBy(dx: padding, dy: accessoryView.frame.size.height + padding * 2)
+                height: label.frame.size.height + accessoryView.frame.size.height + padding * 2)
             
             accessoryView.frame = accessoryView.frame.offsetBy(dx: (actualSize.width - accessoryView.frame.size.width)/2, dy: padding)
+            
+            label.center.x = accessoryView.center.x
+            label.center.y = accessoryView.center.y + (accessoryView.frame.height * 2) + padding
         }
         
         // Container view
