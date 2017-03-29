@@ -453,6 +453,10 @@ open class SwiftOverlays: NSObject {
         }
     }
     
+    open class func closeAllAnnoyingNotificationOnTopStatusBar(){
+        bannerWindow?.subviews.forEach({ $0.removeFromSuperview() })
+    }
+    
     open class func closeAnnoyingNotificationOnTopOfStatusBar(_ sender: AnyObject) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     
