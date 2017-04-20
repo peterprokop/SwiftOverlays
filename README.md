@@ -1,9 +1,11 @@
-[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
-
-# SwiftOverlays
+![Imgur](http://i.imgur.com/AFMWOiJ.gif)
 
 SwiftOverlays is a Swift GUI library for displaying various popups and notifications.
 
+SwiftOverlays animated logo is kindly made by [Crafted Pixels](http://bit.ly/craftedpx)
+
+[![Build Status](https://travis-ci.org/peterprokop/SwiftOverlays.svg?branch=master)](https://travis-ci.org/peterprokop/SwiftOverlays)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Features
 
@@ -29,6 +31,16 @@ SwiftOverlays provides several ways to notify user:
 ### Manual
 Just clone and add ```SwiftOverlays.swift``` to your project.
 
+### Carthage
+* `> Cartfile`
+* `nano Cartfile`
+* put `github "peterprokop/SwiftOverlays" ~> 3.0.0` into Cartfile
+* Save it: `ctrl-x`, `y`, `enter`
+* Run `carthage update`
+* Copy `SwiftOverlays.framework` from `Carthage/Build/iOS` to your project
+* Make sure that `SwiftOverlays` is added in `Embedded Binaries` section of your target (or else you will get `dyld library not loaded referenced from ... reason image not found` error)
+* Add `import SwiftOverlays` on top of your view controller's code
+
 ### Cocoapods
 - Make sure that you use latest stable Cocoapods version: `pod --version`
 - If not, update it: `sudo gem install cocoapods`
@@ -36,7 +48,7 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 - `nano Podfile`, add:
 
 ```
-pod 'SwiftOverlays', '~> 1.0'
+pod 'SwiftOverlays', '~> 3.0.0'
 use_frameworks! 
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
@@ -47,8 +59,9 @@ use_frameworks!
 ## Requirements
 
 - iOS 7.0+ (8.0+ if you use Cocoapods)
-- Xcode 7.0
-- Swift 2.0 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2))
+- Xcode 8.0+
+- Swift 3.0 (if you need older swift version, see following branches: [swift-1.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.1), [swift-1.2](https://github.com/peterprokop/SwiftOverlays/tree/swift-1.2),
+[swift-2.1](https://github.com/peterprokop/SwiftOverlays/tree/swift-2.1) and others)
 
 ## Usage
 
@@ -84,16 +97,19 @@ SwiftOverlays.removeAllBlockingOverlays()
 
 ```
 
-### Using with UITableViewController
+### Using with UITableViewController/UICollectionViewController
 
 You can't use SwiftOverlays convenience methods directly with UITableViewController - because its view is, well, an UITableView, and overlay will be scrolled along with it.
 
 Instead I suggest using UIViewController instead of UITableViewController and adding UITableView as a subview.
+(the same applies to UICollectionViewController)
 
 If for some reason you can't use UIViewController, you can do something like:
 ```swift
-SwiftOverlays.showCenteredWaitOverlayWithText(self.view.superview!, text: "Please wait...")
-SwiftOverlays.removeAllOverlaysFromView(self.view.superview!)
+if let superview = self.view.superview {
+  SwiftOverlays.showCenteredWaitOverlayWithText(superview, text: "Please wait...")
+  SwiftOverlays.removeAllOverlaysFromView(superview)
+}
 ```
 
 (but in that case overlay will be added to the superview, and you should obviously do that only if superview is available - for example in viewDidAppear method of your controller.).
@@ -104,4 +120,5 @@ You are welcome to fork and submit pull requests
 
 ## Other Projects
 
-[StarryStars](https://github.com/peterprokop/StarryStars) - iOS GUI library for displaying and editing ratings.
+- [StarryStars](https://github.com/peterprokop/StarryStars) - iOS GUI library for displaying and editing ratings.
+- [AlertyAlert](https://github.com/peterprokop/AlertyAlert) - AlertyAlert is a nice and fluffy iOS alert library for all your alerty needs.

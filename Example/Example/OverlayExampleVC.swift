@@ -24,8 +24,8 @@ class OverlayExampleVC: UIViewController {
     
     var type: ExampleType = .Wait
 
-    var beginTimer: NSTimer?
-    var endTimer: NSTimer?
+    var beginTimer: Timer?
+    var endTimer: Timer?
     
     var progress = 0.0
     
@@ -35,7 +35,7 @@ class OverlayExampleVC: UIViewController {
         self.begin()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if let beginTimer = beginTimer {
@@ -69,7 +69,7 @@ class OverlayExampleVC: UIViewController {
             return
             
         case .ImageAndText:
-            let image = PPSwiftGifs.animatedImageWithGIFNamed("Loading")
+            let image = PPSwiftGifs.animatedImageWithGIFNamed(name: "Loading")
             let text = "Overlay\nWith cool GIF!"
             self.showImageAndTextOverlay(image!, text: text)
             // Or SwiftOverlays.showImageAndTextOverlay(self.view, image: image!, text: text)
@@ -78,12 +78,12 @@ class OverlayExampleVC: UIViewController {
             
         case .Progress:
             self.showProgressOverlay("This is a progress overlay!")
-            endTimer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: "end", userInfo: nil, repeats: true)
+            endTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(end), userInfo: nil, repeats: true)
             
             return
             
         case .AnnoyingNotification:
-            NSBundle.mainBundle().loadNibNamed("AnnoyingNotification", owner: self, options: nil)
+            Bundle.main.loadNibNamed("AnnoyingNotification", owner: self, options: nil)
             annoyingNotificationView!.frame.size.width = self.view.bounds.width;
             
             UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
@@ -102,7 +102,7 @@ class OverlayExampleVC: UIViewController {
             endTimer.invalidate()
         }
         
-        endTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "end", userInfo: nil, repeats: false)
+        endTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
     }
     
     func end() {
@@ -128,6 +128,6 @@ class OverlayExampleVC: UIViewController {
             beginTimer.invalidate()
         }
         
-        beginTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "begin", userInfo: nil, repeats: false)
+        beginTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(begin), userInfo: nil, repeats: false)
     }
 }

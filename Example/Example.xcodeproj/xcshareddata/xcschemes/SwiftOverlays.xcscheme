@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0DEE76BC19F14A0800F6F7A7"
-               BuildableName = "Example.app"
-               BlueprintName = "Example"
-               ReferencedContainer = "container:Example.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0DEE76D319F14A0800F6F7A7"
-               BuildableName = "ExampleTests.xctest"
-               BlueprintName = "ExampleTests"
+               BlueprintIdentifier = "0D90083C1C673C87003D334A"
+               BuildableName = "SwiftOverlays.framework"
+               BlueprintName = "SwiftOverlays"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0DEE76D319F14A0800F6F7A7"
-               BuildableName = "ExampleTests.xctest"
-               BlueprintName = "ExampleTests"
+               BlueprintIdentifier = "0D9008451C673C87003D334A"
+               BuildableName = "SwiftOverlaysTests.xctest"
+               BlueprintName = "SwiftOverlaysTests"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0DEE76BC19F14A0800F6F7A7"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BlueprintIdentifier = "0D90083C1C673C87003D334A"
+            BuildableName = "SwiftOverlays.framework"
+            BlueprintName = "SwiftOverlays"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,16 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0DEE76BC19F14A0800F6F7A7"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BlueprintIdentifier = "0D90083C1C673C87003D334A"
+            BuildableName = "SwiftOverlays.framework"
+            BlueprintName = "SwiftOverlays"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -94,16 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0DEE76BC19F14A0800F6F7A7"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BlueprintIdentifier = "0D90083C1C673C87003D334A"
+            BuildableName = "SwiftOverlays.framework"
+            BlueprintName = "SwiftOverlays"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
