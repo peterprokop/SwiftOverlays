@@ -300,6 +300,7 @@ open class SwiftOverlays: NSObject {
     @discardableResult
     open class func showCenteredWaitOverlayWithText(_ parentView: UIView, text: String, fontSize: CGFloat) -> UIView  {
         let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+
         ai.startAnimating()
         
         return showGenericOverlay(parentView, text: text, fontSize: fontSize, accessoryView: ai)
