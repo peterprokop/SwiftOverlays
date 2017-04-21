@@ -39,7 +39,7 @@ public extension UIViewController {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
-    func showWaitOverlayWithText(text: NSString, withFontSize size: CGFloat) -> UIView {
+    func showWaitOverlayWithText(text: String, withFontSize size: CGFloat) -> UIView {
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text, fontSize: size)
     }
     
@@ -57,7 +57,7 @@ public extension UIViewController {
         return SwiftOverlays.showTextOverlay(self.view, text: text)
     }
     
-    func showTextOverlay(text: NSString, withFontSize size: CGFloat) -> UIView {
+    func showTextOverlay(text: String, withFontSize size: CGFloat) -> UIView {
         return SwiftOverlays.showTextOverlay(self.view, text: text, fontSize: size)
     }
     
@@ -505,7 +505,7 @@ open class SwiftOverlays: NSObject {
         return labelForText(text, withFontSize: 14.0)
     }
 
-    fileprivate class func labelForText(_ text: String) -> UILabel {
+    fileprivate class func labelForText(_ text: String, withFontSize size: CGFloat) -> UILabel {
         let font = UIFont.systemFontOfSize(size)
         let textSize = text.size(attributes: [NSFontAttributeName: font])
         
