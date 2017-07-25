@@ -89,6 +89,22 @@ public extension UIViewController {
     func showImageAndTextOverlay(_ image: UIImage, text: String) -> UIView  {
         return SwiftOverlays.showImageAndTextOverlay(self.view, image: image, text: text)
     }
+
+   /**
+    Shows overlay *with button and text*, centered in the view controller's main view.
+
+    Do not use this method for **UITableViewController** or **UICollectionViewController**
+
+    - parameter image: Image to be added to overlay
+    - parameter text: Text to be shown on overlay
+    - parameter horizontalLayout: If the alignment of items inside should be horizontal or vertical
+    - parameter showTextFirst: If the text should be on top (for Vertical align) or right (for Horizontal align) of the button
+
+    - returns: A reference to the button
+    */
+   func showButtonAndTextOverlay(_ image: UIImage, text: String, horizontalLayout: Bool = true, showTextFirst: Bool = false) -> UIButton {
+      return SwiftOverlays.showButtonAndTextOverlay(self.view, image, text, horizontalLayout, showTextFirst)
+   }
     
     /**
         Shows notification on top of the status bar, similar to native local or remote notifications
@@ -312,53 +328,89 @@ open class SwiftOverlays: NSObject {
         return showGenericOverlay(parentView, text: text, accessoryView: imageView)
     }
 
+   @discardableResult
+   open class func showButtonAndTextOverlay(_ parentView: UIView, _ image: UIImage, _ text: String, _ horizontalLayout: Bool = true, _ showTextFirst: Bool = false) -> UIButton {
+      let button = UIButton(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+      button.setImage(image, for: .normal)
+      button.setImage(image, for: .selected)
+      showGenericOverlay(parentView, text, button, horizontalLayout, showTextFirst)
+      return button
+   }
+
     open class func showGenericOverlay(_ parentView: UIView, text: String, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
         return showGenericOverlay(parentView, text: text, fontSize: 14.0, accessoryView: accessoryView)
     }
 
-    open class func showGenericOverlay(_ parentView: UIView, text: String, fontSize: CGFloat, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
-        let label = labelForText(text)
-        var actualSize = CGSize.zero
-        
-        if horizontalLayout {
-            actualSize = CGSize(width: accessoryView.frame.size.width + label.frame.size.width + padding * 3,
-                height: max(label.frame.size.height, accessoryView.frame.size.height) + padding * 2)
-            
-            label.frame = label.frame.offsetBy(dx: accessoryView.frame.size.width + padding * 2, dy: padding)
-            
-            accessoryView.frame = accessoryView.frame.offsetBy(dx: padding, dy: (actualSize.height - accessoryView.frame.size.height)/2)
-        } else {
-            actualSize = CGSize(width: max(accessoryView.frame.size.width, label.frame.size.width) + padding * 2,
-                height: label.frame.size.height + accessoryView.frame.size.height + padding * 3)
-            
-            label.frame = label.frame.offsetBy(dx: padding, dy: accessoryView.frame.size.height + padding * 2)
-            
-            accessoryView.frame = accessoryView.frame.offsetBy(dx: (actualSize.width - accessoryView.frame.size.width)/2, dy: padding)
-        }
-        
-        // Container view
-        let containerViewRect = CGRect(x: 0,
-            y: 0,
-            width: actualSize.width,
-            height: actualSize.height)
-        
-        let containerView = UIView(frame: containerViewRect)
-        
-        containerView.tag = containerViewTag
-        containerView.layer.cornerRadius = cornerRadius
-        containerView.backgroundColor = backgroundColor
-        containerView.center = CGPoint(x: parentView.bounds.size.width/2,
-            y: parentView.bounds.size.height/2)
-        
-        containerView.addSubview(accessoryView)
-        containerView.addSubview(label)
-        
-        parentView.addSubview(containerView)
-        
-        Utils.centerViewInSuperview(containerView)
-        
-        return containerView
-    }
+   @discardableResult
+   open class func showGenericOverlay(_ parentView: UIView, _ text: String, _ fontSize: CGFloat, _ accessoryView: UIView, _ horizontalLayout: Bool = true, _ showTextFirst: Bool = false) -> UIView {
+
+      // Get a full setted label
+      let label = labelForText(text)
+
+      // Values to perform position calculations
+      var contentSize = CGSize.zero
+      let labelWidth = label.frame.size.width
+      let labelHeight = label.frame.size.height
+      let accWidth = accessoryView.frame.size.width
+      let accHeight = accessoryView.frame.size.height
+
+      if horizontalLayout {
+
+         // Calculates parent size
+         contentSize = CGSize(width: accWidth + labelWidth + (padding * 3),
+                              height: max(labelHeight, accHeight) + (padding * 2))
+         let parentHeight = contentSize.height
+
+         if showTextFirst {
+
+            // Place the label on the left
+            label.frame = label.frame.offsetBy(dx: padding, dy: (parentHeight - labelHeight)/2)
+            accessoryView.frame = accessoryView.frame.offsetBy(dx: labelWidth + padding * 2, dy: (parentHeight - accHeight)/2)
+
+         } else {
+
+            // Place the label on the right
+            label.frame = label.frame.offsetBy(dx: accWidth + padding * 2, dy: (parentHeight - labelHeight)/2)
+            accessoryView.frame = accessoryView.frame.offsetBy(dx: padding, dy: (parentHeight - accHeight)/2)
+         }
+
+      } else { // Vertical
+
+         // Calculates parent size
+         contentSize = CGSize(width: max(accWidth, labelWidth) + (padding * 2),
+                              height: labelHeight + accHeight + (padding * 3))
+         let parentWidth = contentSize.width
+
+         if showTextFirst {
+
+            // Place the label over the accessoryView
+            label.frame = label.frame.offsetBy(dx: (parentWidth - labelWidth)/2, dy: padding)
+            accessoryView.frame = accessoryView.frame.offsetBy(dx: (parentWidth - accWidth)/2, dy: labelHeight + (padding * 2))
+
+         } else {
+
+            // Place the label below the accessoryView
+            label.frame = label.frame.offsetBy(dx: (parentWidth - labelWidth)/2, dy: accHeight + (padding * 2))
+            accessoryView.frame = accessoryView.frame.offsetBy(dx: (parentWidth - accWidth)/2, dy: padding)
+         }
+      }
+
+      // Container view
+      let containerViewRect = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
+
+      let containerView = UIView(frame: containerViewRect)
+      containerView.tag = containerViewTag
+      containerView.layer.cornerRadius = cornerRadius
+      containerView.backgroundColor = backgroundColor
+      containerView.center = CGPoint(x: parentView.bounds.size.width/2, y: parentView.bounds.size.height/2)
+      containerView.addSubview(accessoryView)
+      containerView.addSubview(label)
+      
+      parentView.addSubview(containerView)
+      Utils.centerViewInSuperview(containerView)
+      
+      return containerView
+   }
     
     open class func showTextOverlay(_ parentView: UIView, text: String) -> UIView  {
         return showTextOverlay(parentView, text: text, fontSize: 14.0)
