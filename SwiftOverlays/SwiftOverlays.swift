@@ -97,7 +97,6 @@ public extension UIViewController {
         - parameter duration: Amount of time until notification disappears
         - parameter animated: Should appearing be animated
     */
-    @discardableResult
     class func showNotificationOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
         SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration, animated: animated)
     }
