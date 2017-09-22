@@ -50,7 +50,7 @@ class OverlayExampleVC: UIViewController {
     }
     
     // MARK: begin/end
-    func begin() {
+    @objc func begin() {
         switch (type) {
         case .Wait:
             self.showWaitOverlay()
@@ -105,7 +105,7 @@ class OverlayExampleVC: UIViewController {
         endTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
     }
     
-    func end() {
+    @objc func end() {
         switch (type) {
         case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)

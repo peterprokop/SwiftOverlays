@@ -256,24 +256,30 @@ open class SwiftOverlays: NSObject {
     // MARK: Non-blocking
     @discardableResult
     open class func showCenteredWaitOverlay(_ parentView: UIView) -> UIView {
-        let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        let ai = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         ai.startAnimating()
         
-        let containerViewRect = CGRect(x: 0,
+        let containerViewRect = CGRect(
+            x: 0,
             y: 0,
             width: ai.frame.size.width * 2,
-            height: ai.frame.size.height * 2)
+            height: ai.frame.size.height * 2
+        )
         
         let containerView = UIView(frame: containerViewRect)
         
         containerView.tag = containerViewTag
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
-        containerView.center = CGPoint(x: parentView.bounds.size.width/2,
-            y: parentView.bounds.size.height/2);
+        containerView.center = CGPoint(
+            x: parentView.bounds.size.width/2,
+            y: parentView.bounds.size.height/2
+        )
         
-        ai.center = CGPoint(x: containerView.bounds.size.width/2,
-            y: containerView.bounds.size.height/2);
+        ai.center = CGPoint(
+            x: containerView.bounds.size.width/2,
+            y: containerView.bounds.size.height/2
+        )
         
         containerView.addSubview(ai)
         
@@ -286,7 +292,7 @@ open class SwiftOverlays: NSObject {
     
     @discardableResult
     open class func showCenteredWaitOverlayWithText(_ parentView: UIView, text: String) -> UIView  {
-        let ai = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        let ai = UIActivityIndicatorView(activityIndicatorStyle: .white)
         ai.startAnimating()
         
         return showGenericOverlay(parentView, text: text, accessoryView: ai)
@@ -320,18 +326,16 @@ open class SwiftOverlays: NSObject {
         }
         
         // Container view
-        let containerViewRect = CGRect(x: 0,
-            y: 0,
-            width: actualSize.width,
-            height: actualSize.height)
-        
+        let containerViewRect = CGRect(origin: .zero, size: actualSize)
         let containerView = UIView(frame: containerViewRect)
      
         containerView.tag = containerViewTag
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
-        containerView.center = CGPoint(x: parentView.bounds.size.width/2,
-            y: parentView.bounds.size.height/2)
+        containerView.center = CGPoint(
+            x: parentView.bounds.size.width/2,
+            y: parentView.bounds.size.height/2
+        )
         
         containerView.addSubview(accessoryView)
         containerView.addSubview(label)
@@ -352,18 +356,16 @@ open class SwiftOverlays: NSObject {
             height: label.frame.size.height + padding * 2)
         
         // Container view
-        let containerViewRect = CGRect(x: 0,
-            y: 0,
-            width: actualSize.width,
-            height: actualSize.height)
-        
+        let containerViewRect = CGRect(origin: .zero, size: actualSize)
         let containerView = UIView(frame: containerViewRect)
         
         containerView.tag = containerViewTag
         containerView.layer.cornerRadius = cornerRadius
         containerView.backgroundColor = backgroundColor
-        containerView.center = CGPoint(x: parentView.bounds.size.width/2,
-            y: parentView.bounds.size.height/2);
+        containerView.center = CGPoint(
+            x: parentView.bounds.size.width/2,
+            y: parentView.bounds.size.height/2
+        )
 
         containerView.addSubview(label)
         
@@ -452,7 +454,7 @@ open class SwiftOverlays: NSObject {
         }
     }
     
-    open class func closeAnnoyingNotificationOnTopOfStatusBar(_ sender: AnyObject) {
+    @objc open class func closeAnnoyingNotificationOnTopOfStatusBar(_ sender: AnyObject) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     
         var notificationView: UIView?
@@ -480,13 +482,10 @@ open class SwiftOverlays: NSObject {
     // MARK: - Private class methods -
     
     fileprivate class func labelForText(_ text: String) -> UILabel {
-        let textSize = text.size(attributes: [NSFontAttributeName: font])
+        let textSize = text.size(withAttributes: [NSAttributedStringKey.font: font])
         
-        let labelRect = CGRect(x: 0,
-            y: 0,
-            width: textSize.width,
-            height: textSize.height)
-        
+        let labelRect = CGRect(origin: .zero, size: textSize)
+
         let label = UILabel(frame: labelRect)
         label.font = font
         label.textColor = textColor
@@ -511,12 +510,12 @@ open class SwiftOverlays: NSObject {
         
         // Add constraints to handle orientation change
         let constraintsV = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[blocker]-0-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
+            options: [],
             metrics: nil,
             views: viewsDictionary)
         
         let constraintsH = NSLayoutConstraint.constraints(withVisualFormat: "|-0-[blocker]-0-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
+            options: [],
             metrics: nil,
             views: viewsDictionary)
         
