@@ -84,9 +84,8 @@ class OverlayExampleVC: UIViewController {
             
         case .AnnoyingNotification:
             Bundle.main.loadNibNamed("AnnoyingNotification", owner: self, options: nil)
-            annoyingNotificationView!.frame.size.width = self.view.bounds.width;
             
-            UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+            UIViewController.showOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
             // Or SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
             
             return

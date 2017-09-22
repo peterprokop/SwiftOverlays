@@ -89,8 +89,8 @@ public extension UIViewController {
         - parameter duration: Amount of time until notification disappears
         - parameter animated: Should appearing be animated
     */
-    class func showNotificationOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
-        SwiftOverlays.showAnnoyingNotificationOnTopOfStatusBar(notificationView, duration: duration, animated: animated)
+    class func showOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
+        SwiftOverlays.showOnTopOfStatusBar(notificationView, duration: duration, animated: animated)
     }
     
     /**
@@ -402,27 +402,36 @@ open class SwiftOverlays: NSObject {
     
     // MARK: Status bar notification
     
-    open class func showAnnoyingNotificationOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
+    open class func showOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
         if bannerWindow == nil {
             bannerWindow = UIWindow()
             bannerWindow!.windowLevel = UIWindowLevelStatusBar + 1
             bannerWindow!.backgroundColor = UIColor.clear
         }
-        
-        bannerWindow!.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: notificationView.frame.size.height)
+
+        // TODO: use autolayout instead
+        // Ugly, but works
+        let topHeight = UIApplication.shared.statusBarFrame.size.height
+            + UINavigationController().navigationBar.frame.height
+
+        let height = max(topHeight, 64)
+        let width = UIScreen.main.bounds.width
+
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+
+        bannerWindow!.frame = frame
         bannerWindow!.isHidden = false
         
-        let selector = #selector(closeAnnoyingNotificationOnTopOfStatusBar)
+        let selector = #selector(closeNotificationOnTopOfStatusBar)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: selector)
         notificationView.addGestureRecognizer(gestureRecognizer)
         
         bannerWindow!.addSubview(notificationView)
-        
+
         if animated {
-            let frame = notificationView.frame
-            let origin = CGPoint(x: 0, y: -frame.height)
-            notificationView.frame = CGRect(origin: origin, size: frame.size)
-            
+            notificationView.frame = frame.offsetBy(dx: 0, dy: -frame.height)
+            bannerWindow!.layoutIfNeeded()
+
             // Show appearing animation, schedule calling closing selector after completed
             UIView.animate(withDuration: bannerDissapearAnimationDuration, animations: { 
                 let frame = notificationView.frame
@@ -431,31 +440,32 @@ open class SwiftOverlays: NSObject {
                 self.perform(selector, with: notificationView, afterDelay: duration)
             })
         } else {
+            notificationView.frame = frame
             // Schedule calling closing selector right away
             self.perform(selector, with: notificationView, afterDelay: duration)
         }
     }
     
-    @objc open class func closeAnnoyingNotificationOnTopOfStatusBar(_ sender: AnyObject) {
+    @objc open class func closeNotificationOnTopOfStatusBar(_ sender: AnyObject) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     
-        var notificationView: UIView?
+        let notificationView: UIView
         
-        if sender.isKind(of: UITapGestureRecognizer.self) {
-            notificationView = (sender as! UITapGestureRecognizer).view!
-        } else if sender.isKind(of: UIView.self) {
-            notificationView = (sender as! UIView)
+        if let recognizer = sender as? UITapGestureRecognizer {
+            notificationView = recognizer.view!
+        } else if let view = sender as? UIView {
+            notificationView = view
+        } else {
+            return
         }
         
         UIView.animate(withDuration: bannerDissapearAnimationDuration,
             animations: { () -> Void in
-                if let frame = notificationView?.frame {
-                    notificationView?.frame = frame.offsetBy(dx: 0, dy: -frame.size.height)
-                }
+                let frame = notificationView.frame
+                notificationView.frame = frame.offsetBy(dx: 0, dy: -frame.height)
             },
             completion: { (finished) -> Void in
-                notificationView?.removeFromSuperview()
-                
+                notificationView.removeFromSuperview()
                 bannerWindow?.isHidden = true
             }
         )
@@ -471,10 +481,10 @@ open class SwiftOverlays: NSObject {
         let label = UILabel(frame: labelRect)
         label.font = font
         label.textColor = textColor
-        label.text = text as String
+        label.text = text
         label.numberOfLines = 0
         
-        return label;
+        return label
     }
     
     fileprivate class func addMainWindowBlocker() -> UIView {
