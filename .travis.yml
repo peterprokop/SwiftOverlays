@@ -4,4 +4,4 @@ env:
   global:
   - APP_NAME="SwiftOverlays"
 script:
-  - xcodebuild -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' test
+  - xcodebuild -project Example/Example.xcodeproj -scheme SwiftOverlays-example-debug -destination 'platform=iOS Simulator,name=iPhone X,OS=11.0' test
