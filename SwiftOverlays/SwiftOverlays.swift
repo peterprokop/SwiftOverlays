@@ -372,8 +372,7 @@ open class SwiftOverlays: NSObject {
         parentView.addSubview(containerView)
         
         Utils.centerViewInSuperview(containerView)
-        
-        
+
         return containerView
     }
     
@@ -384,37 +383,20 @@ open class SwiftOverlays: NSObject {
     }
     
     open class func removeAllOverlaysFromView(_ parentView: UIView) {
-        var overlay: UIView?
-
-        while true {
-            overlay = parentView.viewWithTag(containerViewTag)
-            if overlay == nil {
-                break
-            }
-            
-            overlay!.removeFromSuperview()
-        }
+        parentView.subviews
+            .filter { $0.tag == containerViewTag }
+            .forEach { $0.removeFromSuperview() }
     }
     
     open class func updateOverlayText(_ parentView: UIView, text: String) {
         if let overlay = parentView.viewWithTag(containerViewTag) {
-            for subview in overlay.subviews {
-                if let label = subview as? UILabel {
-                    label.text = text as String
-                    break
-                }
-            }
+            overlay.subviews.flatMap { $0 as? UILabel }.first?.text = text
         }
     }
     
     open class func updateOverlayProgress(_ parentView: UIView, progress: Float) {
         if let overlay = parentView.viewWithTag(containerViewTag) {
-            for subview in overlay.subviews {
-                if let pv = subview as? UIProgressView {
-                    pv.progress = progress
-                    break
-                }
-            }
+            overlay.subviews.flatMap { $0 as? UIProgressView }.first?.progress = progress
         }
     }
     
