@@ -11,7 +11,7 @@ import UIKit
 
 
 // For convenience methods
-public extension UIViewController {
+@objc public extension UIViewController {
     
     /**
         Shows wait overlay with activity indicator, centered in the view controller's main view
