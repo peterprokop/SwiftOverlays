@@ -87,7 +87,7 @@ self.showTextOverlay(text)
 self.removeAllOverlays()
 
 // Notification on top of the status bar
-UIViewController.showNotificationOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
+UIViewController.showOnTopOfStatusBar(annoyingNotificationView!, duration: 5)
 
 // Block user interaction
 SwiftOverlays.showBlockingWaitOverlayWithText("This is blocking overlay!")
