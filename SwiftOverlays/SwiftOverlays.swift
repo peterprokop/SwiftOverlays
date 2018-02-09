@@ -483,6 +483,7 @@ open class SwiftOverlays: NSObject {
         label.textColor = textColor
         label.text = text
         label.numberOfLines = 0
+        label.textAlignment = .center
         
         return label
     }
