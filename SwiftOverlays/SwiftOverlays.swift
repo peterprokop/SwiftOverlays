@@ -306,7 +306,7 @@ open class SwiftOverlays: NSObject {
     }
 
     open class func showGenericOverlay(_ parentView: UIView, text: String, accessoryView: UIView, horizontalLayout: Bool = true) -> UIView {
-        let label = labelForText(text, maxWith: parentView.bounds.size.width - accessoryView.bounds.size.width - padding * 3)
+        let label = labelForText(text, maxWidth: parentView.bounds.size.width - accessoryView.bounds.size.width - padding * 5)
         var actualSize = CGSize.zero
         
         if horizontalLayout {
@@ -349,7 +349,7 @@ open class SwiftOverlays: NSObject {
     
     @discardableResult
     open class func showTextOverlay(_ parentView: UIView, text: String) -> UIView  {
-        let label = labelForText(text, maxWith: parentView.bounds.size.width)
+        let label = labelForText(text, maxWidth: parentView.bounds.size.width - padding * 2)
         label.frame = label.frame.offsetBy(dx: padding, dy: padding)
         
         let actualSize = CGSize(width: label.frame.size.width + padding * 2,
@@ -473,7 +473,7 @@ open class SwiftOverlays: NSObject {
     
     // MARK: - Private class methods -
     
-    fileprivate class func labelForText(_ text: String, maxWith : CGFloat) -> UILabel {
+    fileprivate class func labelForText(_ text: String, maxWidth : CGFloat) -> UILabel {
         let label = UILabel()
         
         label.font = font
@@ -483,7 +483,7 @@ open class SwiftOverlays: NSObject {
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         
-        let maximumLabelSize = CGSize(width: maxWith,height: 9999)
+        let maximumLabelSize = CGSize(width: maxWidth,height: 9999)
         let expectedLabelSize = label.sizeThatFits(maximumLabelSize)
         var newFrame: CGRect = label.frame
         newFrame.size = expectedLabelSize
