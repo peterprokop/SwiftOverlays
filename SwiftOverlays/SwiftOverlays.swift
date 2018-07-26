@@ -390,13 +390,13 @@ open class SwiftOverlays: NSObject {
     
     open class func updateOverlayText(_ parentView: UIView, text: String) {
         if let overlay = parentView.viewWithTag(containerViewTag) {
-            overlay.subviews.flatMap { $0 as? UILabel }.first?.text = text
+            overlay.subviews.compactMap { $0 as? UILabel }.first?.text = text
         }
     }
     
     open class func updateOverlayProgress(_ parentView: UIView, progress: Float) {
         if let overlay = parentView.viewWithTag(containerViewTag) {
-            overlay.subviews.flatMap { $0 as? UIProgressView }.first?.progress = progress
+            overlay.subviews.compactMap { $0 as? UIProgressView }.first?.progress = progress
         }
     }
     
