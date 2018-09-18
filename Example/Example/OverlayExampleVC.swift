@@ -23,7 +23,7 @@ class OverlayExampleVC: UIViewController {
     @IBOutlet var annoyingNotificationView: UIView?
     
     var type: ExampleType = .Wait
-
+    
     var beginTimer: Timer?
     var endTimer: Timer?
     
@@ -50,7 +50,7 @@ class OverlayExampleVC: UIViewController {
     }
     
     // MARK: begin/end
-    @objc func begin() {
+    func begin() {
         switch (type) {
         case .Wait:
             self.showWaitOverlay()
@@ -60,7 +60,7 @@ class OverlayExampleVC: UIViewController {
             let text = "Please wait..."
             self.showWaitOverlayWithText(text)
             // Or SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
-        
+            
         case .TextOnly:
             let text = "This is a text-only overlay...\n...spanning several lines"
             self.showTextOverlay(text)
@@ -73,12 +73,14 @@ class OverlayExampleVC: UIViewController {
             let text = "Overlay\nWith cool GIF!"
             self.showImageAndTextOverlay(image!, text: text)
             // Or SwiftOverlays.showImageAndTextOverlay(self.view, image: image!, text: text)
-
+            
             return
             
         case .Progress:
             self.showProgressOverlay("This is a progress overlay!")
-            endTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(end), userInfo: nil, repeats: true)
+            endTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] (_) in
+                self?.end()
+            }
             
             return
             
@@ -101,10 +103,12 @@ class OverlayExampleVC: UIViewController {
             endTimer.invalidate()
         }
         
-        endTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(end), userInfo: nil, repeats: false)
+        endTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] (_) in
+            self?.end()
+        }
     }
     
-    @objc func end() {
+    func end() {
         switch (type) {
         case .Wait, .WaitWithText, .TextOnly, .ImageAndText:
             SwiftOverlays.removeAllOverlaysFromView(self.view)
@@ -127,6 +131,8 @@ class OverlayExampleVC: UIViewController {
             beginTimer.invalidate()
         }
         
-        beginTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(begin), userInfo: nil, repeats: false)
+        beginTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] (_) in
+            self?.begin()
+        }
     }
 }
