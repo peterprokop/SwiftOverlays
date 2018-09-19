@@ -34,7 +34,7 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 ### Carthage
 * `> Cartfile`
 * `nano Cartfile`
-* put `github "peterprokop/SwiftOverlays" ~> 4.0.0` into Cartfile
+* put `github "peterprokop/SwiftOverlays" ~> 5.0.0` into Cartfile
 * Save it: `ctrl-x`, `y`, `enter`
 * Run `carthage update`
 * Copy `SwiftOverlays.framework` from `Carthage/Build/iOS` to your project
@@ -48,7 +48,7 @@ Just clone and add ```SwiftOverlays.swift``` to your project.
 - `nano Podfile`, add:
 
 ```
-pod 'SwiftOverlays', '~> 4.0.0'
+pod 'SwiftOverlays', '~> 5.0.0'
 use_frameworks! 
 ``` 
 - Save it: `ctrl-x`, `y`, `enter`
@@ -58,9 +58,9 @@ use_frameworks!
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 9.0+
-- Swift 4.0 (if you need older swift version, see
+- iOS 10.0+
+- Xcode 10.0+
+- Swift 4.2 (if you need older swift version, see
 [swift-3.0](https://github.com/peterprokop/SwiftOverlays/tree/swift-3.0) and others)
 
 ## Usage
