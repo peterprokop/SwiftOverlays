@@ -252,6 +252,22 @@ open class SwiftOverlays: NSObject {
         
         return blocker
     }
+
+    /**
+     Shows *blocking* overlay *with progress view and text*,, centered in the app's main window
+     
+     - parameter text: Text to be shown on overlay
+     
+     - returns: Created overlay
+     */
+    open class func showBlockingProgressOverlay(_ text: String) -> UIProgressView  {
+        let blocker = addMainWindowBlocker()
+        let pv = UIProgressView(progressViewStyle: .default)
+        
+        showGenericOverlay(blocker, text: text, accessoryView: pv)
+        
+        return pv
+    }
     
     /**
         Removes all *blocking* overlays from application's main window
@@ -326,11 +342,12 @@ open class SwiftOverlays: NSObject {
             accessoryView.frame = accessoryView.frame.offsetBy(dx: padding, dy: (actualSize.height - accessoryView.frame.size.height)/2)
         } else {
             actualSize = CGSize(width: max(accessoryView.frame.size.width, label.frame.size.width) + padding * 2,
-                height: label.frame.size.height + accessoryView.frame.size.height + padding * 3)
-            
-            label.frame = label.frame.offsetBy(dx: padding, dy: accessoryView.frame.size.height + padding * 2)
+                height: label.frame.size.height + accessoryView.frame.size.height + padding * 2)
             
             accessoryView.frame = accessoryView.frame.offsetBy(dx: (actualSize.width - accessoryView.frame.size.width)/2, dy: padding)
+            
+            label.center.x = accessoryView.center.x
+            label.center.y = accessoryView.center.y + (accessoryView.frame.height * 2) + padding
         }
         
         // Container view
